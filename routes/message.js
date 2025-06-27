@@ -6,7 +6,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /message:
+ * /message/template:
  *   post:
  *     summary: Send WhatsApp template messages
  *     description: |
@@ -25,7 +25,7 @@ const router = express.Router();
  *
  *       **Examples:**
  *       - Send a template message to multiple recipients:
- *         `POST /message`
+ *         `POST /message/template`
  *         Body:
  *         {
  *           "template_name": "order_confirmation",
@@ -149,7 +149,7 @@ const router = express.Router();
  *     security:
  *       - bearerAuth: []
  */
-router.post('/', jwtTokenValidation('editor'), async (req, res) => {
+router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
     try {
         const { template_name, phone_messages, wabaId, apiToken, phoneId, language } = req.body;
 
@@ -172,7 +172,7 @@ router.post('/', jwtTokenValidation('editor'), async (req, res) => {
 
         res.status(200).json(result);
     } catch (error) {
-        logger.error('MessageRoute: Error in POST /message', { error: error.message });
+        logger.error('MessageRoute: Error in POST /message-template', { error: error.message });
         res.status(500).json({ error: 'Internal server error', details: error.response?.data || error.message });
     }
 });
