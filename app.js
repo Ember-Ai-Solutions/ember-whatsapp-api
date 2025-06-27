@@ -19,15 +19,10 @@ const swaggerDefinition = {
         title: 'Ember WhatsApp API',
         version: '1.0.0',
         description: 'A robust and well-documented RESTful API for sending WhatsApp template messages and managing Meta templates.\n\nFeatures:\n- Send WhatsApp template messages to multiple recipients.\n- Manage (create, list, delete) Meta templates.\n- JWT-based authentication and project-level authorization.\n- MongoDB integration for project and client management.\n- Fully documented with Swagger (OpenAPI 3.0).',
-        termsOfService: 'https://github.com/seu-usuario/seu-repo/terms',
         contact: {
             name: 'Ember API Support',
-            url: 'https://github.com/seu-usuario/seu-repo',
-            email: 'support@emberapi.com'
-        },
-        license: {
-            name: 'MIT',
-            url: 'https://opensource.org/licenses/MIT'
+            url: 'https://github.com/Ember-Ai-Solutions/ember-whatsapp-api',
+            email: 'emberaitecnologia@gmail.com'
         }
     },
     tags: [
