@@ -54,7 +54,7 @@ const options = {
 };
 
 const swaggerSpec = swaggerJsdoc(options);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/message', messageRoutes);
 app.use('/template', templateRoutes);
@@ -67,5 +67,5 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     logger.info(`App: Server running on port ${PORT}`);
-    logger.info(`App: Swagger docs available at /api-docs`);
+    logger.info(`App: Swagger docs available at /docs`);
 }); 
