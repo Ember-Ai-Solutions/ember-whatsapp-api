@@ -11,14 +11,10 @@ const PROJECTS_COLLECTION_NAME = environment.mongoProjectsCollectionName;
 function jwtTokenValidation(role) {
     return async function (req, res, next) {
         try {
-            const authHeader = req.headers['authorization'];
+            const authHeader = req.headers['authorization'] || req.cookies.token;
             const roleLevels = ['viewer', 'editor', 'admin', 'owner'];
             let tokenRoleLevel = -1;
 
-            if (!authHeader || !authHeader.startsWith('Bearer ')) {
-                logger.error('AuthMiddleware: Missing or invalid Authorization header');
-                return res.status(401).json({ message: 'Unauthorized' });
-            }
             const token = authHeader.replace('Bearer ', '');
             const response = await axios.post(JWT_VALIDATION_URL, { token });
 

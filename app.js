@@ -4,7 +4,7 @@ const logger = require('./config/logger');
 const messageRoutes = require('./routes/message');
 const templateRoutes = require('./routes/template');
 const bodyParser = require('body-parser');
-
+const cookieParser = require('cookie-parser');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
@@ -12,6 +12,7 @@ const app = express();
 
 app.use(bodyParser.json({ verify: (req, res, buf) => { req.rawBody = buf; } }));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 const swaggerDefinition = {
     openapi: '3.0.0',
