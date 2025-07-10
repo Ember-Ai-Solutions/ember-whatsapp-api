@@ -34,9 +34,9 @@ function jwtTokenValidation(role) {
                         return res.status(401).json({ message: 'Project not found' });
                     } else if (project.members[response.data.userId]) {
                         tokenRoleLevel = project.members[response.data.userId].role;
-                        req.body.wabaId = project.whatsAppConfig.businessAccountId;
-                        req.body.phoneId = project.whatsAppConfig.phoneId;
-                        req.body.apiToken = project.whatsAppConfig.apiToken;
+                        req.body.wabaId = project.integrations.whatsApp.businessAccountId;
+                        req.body.phoneId = project.integrations.whatsApp.phoneId;
+                        req.body.apiToken = project.integrations.whatsApp.apiToken;
                     } else {
                         logger.error('AuthMiddleware: User does not have permission for this project', { userId: response.data.userId, projectId: req.query.projectId });
                         return res.status(401).json({ message: 'You do not have permission to access this project' });
@@ -51,9 +51,9 @@ function jwtTokenValidation(role) {
                     logger.error('AuthMiddleware: Project not found for service', { projectId: response.data.projectId });
                     return res.status(401).json({ message: 'Project not found' });
                 } else {
-                    req.body.wabaId = project.whatsAppConfig.businessAccountId;
-                    req.body.phoneId = project.whatsAppConfig.phoneId;
-                    req.body.apiToken = project.whatsAppConfig.apiToken;
+                    req.body.wabaId = project.integrations.whatsApp.businessAccountId;
+                    req.body.phoneId = project.integrations.whatsApp.phoneId;
+                    req.body.apiToken = project.integrations.whatsApp.apiToken;
                     tokenRoleLevel = roleLevels.indexOf(response.data.role);
                 }
             }
@@ -85,7 +85,7 @@ async function originRequestValidation(req, res, next) {
         return res.status(401).json({ message: 'Project not found' });
     }
 
-    const appSecret = project.whatsAppConfig.appSecret;
+    const appSecret = project.integrations.whatsApp.appSecret;
 
     if (signature && appSecret) {
         const expectedSignature =
