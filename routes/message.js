@@ -248,9 +248,9 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
  *       - Get all campaigns for a project:
  *         `GET /message/campaign?projectId=123`
  *       - Get a campaign by id:
- *         `GET /message/campaign?projectId=123&id=507f1f77bcf86cd799439011`
+ *         `GET /message/campaign?projectId=123&id=687956f1cce5e63266136961`
  *       - Get a campaign by name:
- *         `GET /message/campaign?projectId=123&name=Campaign%202024-01-15%2010:30:00`
+ *         `GET /message/campaign?projectId=123&name=Campaign%202025-07-17%2020:02:57.712`
  *
  *     tags:
  *       - Message
@@ -286,36 +286,36 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
  *                   _id:
  *                     type: string
  *                     description: Unique campaign identifier
- *                     example: '507f1f77bcf86cd799439011'
+ *                     example: '687956f1cce5e63266136961'
  *                   campaignName:
  *                     type: string
  *                     description: Name of the campaign
- *                     example: 'Campaign 2024-01-15 10:30:00'
+ *                     example: 'Campaign 2025-07-17 20:02:57.712'
  *                   templateName:
  *                     type: string
  *                     description: Name of the template used
- *                     example: 'welcome_template'
+ *                     example: 'hello_world'
  *                   language:
  *                     type: string
  *                     description: Language code used for the template
- *                     example: 'pt_BR'
+ *                     example: 'en_US'
  *                   fromPhoneNumber:
  *                     type: string
  *                     description: Phone number that sent the messages
- *                     example: '5511999999999'
+ *                     example: '+15556287518'
  *                   dateTime:
  *                     type: string
  *                     format: date-time
  *                     description: Campaign execution timestamp
- *                     example: '2024-01-15T10:30:00.000Z'
+ *                     example: '2025-07-17T20:02:57.712Z'
  *                   total:
  *                     type: integer
  *                     description: Total number of messages sent
- *                     example: 2
+ *                     example: 1
  *                   success:
  *                     type: integer
  *                     description: Number of successfully sent messages
- *                     example: 2
+ *                     example: 1
  *                   failed:
  *                     type: integer
  *                     description: Number of failed messages
@@ -329,26 +329,59 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
  *                         phoneNumber:
  *                           type: string
  *                           description: Recipient phone number
- *                           example: '5511999999999'
+ *                           example: '553196371744'
  *                         messageId:
  *                           type: string
  *                           description: WhatsApp message ID
- *                           example: 'wamid.HBgMNTUxMTk5OTk5OTk5FQIAERgSODg3QzA4QzA4QzA4QzA4AA=='
+ *                           example: 'wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSRjVDQUEzMUJDNERFRTlCQkU3AA=='
  *                         status:
  *                           type: string
  *                           description: Message status
- *                           example: 'sent'
+ *                           example: 'answered'
  *                         success:
  *                           type: boolean
  *                           description: Whether the message was sent successfully
  *                           example: true
- *                         error:
+ *                         sentDateTime:
  *                           type: string
- *                           nullable: true
- *                           description: Error message if the message failed
- *                           example: null
- *       400:
- *         description: Invalid input. Required fields are missing or malformed.
+ *                           format: date-time
+ *                           description: Date/time when the message was sent
+ *                           example: '2025-07-17T20:02:58.000Z'
+ *                         deliveredDateTime:
+ *                           type: string
+ *                           format: date-time
+ *                           description: Date/time when the message was delivered
+ *                           example: '2025-07-17T20:02:58.000Z'
+ *                         readDateTime:
+ *                           type: string
+ *                           format: date-time
+ *                           description: Date/time when the message was read
+ *                           example: '2025-07-17T20:05:12.000Z'
+ *                         answers:
+ *                           type: array
+ *                           description: List of answers received for this message
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               messageId:
+ *                                 type: string
+ *                                 description: WhatsApp message ID of the answer
+ *                                 example: 'wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0EwOTNCNTgwODVEQzM0NUVDMTMA'
+ *                               messageText:
+ *                                 type: string
+ *                                 description: Text of the answer
+ *                                 example: 'Ok!'
+ *                               messageType:
+ *                                 type: string
+ *                                 description: Type of the answer message
+ *                                 example: 'text'
+ *                               messageDateTime:
+ *                                 type: string
+ *                                 format: date-time
+ *                                 description: Date/time when the answer was sent
+ *                                 example: '2025-07-17T20:07:33.000Z'
+ *       404:
+ *         description: No campaigns found.
  *         content:
  *           application/json:
  *             schema:
@@ -356,7 +389,7 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
  *               properties:
  *                 error:
  *                   type: string
- *                   example: "Invalid input: projectId is required"
+ *                   example: 'No campaigns found'
  *       401:
  *         description: Unauthorized. JWT is missing, invalid, or does not have the required role.
  *         content:
