@@ -164,6 +164,7 @@ async function saveCampaign(campaignData, projectId) {
 
         const campaignsCollection = campaignsDb.collection(projectIdString);
         await campaignsCollection.insertOne(campaignData);
+        logger.info('MessageService: Campaign saved', { campaignData });
 
     } catch (error) {
         logger.error('MessageService: Error in saveCampaign', { error: error.response?.data || error.message });
