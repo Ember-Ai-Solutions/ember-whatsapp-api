@@ -237,20 +237,20 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
  *
  *       - Requires JWT authentication with at least 'viewer' role for the project.
  *       - The **`projectId`** parameter is optional.
- *       - The **`id`** and **`name`** parameters are optional and can be used to filter the results.
+ *       - The **`campaignId`** and **`campaignName`** parameters are optional and can be used to filter the results.
  *
  *       **Parameter details:**
  *       - `projectId`: Unique identifier of the project. (optional)
- *       - `id`: Unique identifier of the campaign. (optional)
- *       - `name`: Name of the campaign. (optional)
+ *       - `campaignId`: Unique identifier of the campaign. (optional)
+ *       - `campaignName`: Name of the campaign. (optional)
  *
  *       **Examples:**
  *       - Get all campaigns for a project:
  *         `GET /message/campaign?projectId=123`
  *       - Get a campaign by id:
- *         `GET /message/campaign?projectId=123&id=687956f1cce5e63266136961`
+ *         `GET /message/campaign?projectId=123&campaignId=687956f1cce5e63266136961`
  *       - Get a campaign by name:
- *         `GET /message/campaign?projectId=123&name=Campaign%202025-07-17%2020:02:57.712`
+ *         `GET /message/campaign?projectId=123&campaignName=Campaign%202025-07-17%2020:02:57.712`
  *
  *     tags:
  *       - Message
@@ -262,13 +262,13 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
  *           type: string
  *         description: Unique identifier of the project.
  *       - in: query
- *         name: id
+ *         name: campaignId
  *         required: false
  *         schema:
  *           type: string
  *         description: Unique identifier of the campaign.
  *       - in: query
- *         name: name
+ *         name: campaignName
  *         required: false
  *         schema:
  *           type: string
@@ -418,8 +418,8 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
  */
 router.get('/campaign', jwtTokenValidation('viewer'), async (req, res) => {
     try {
-        const { projectId, id, name } = req.query;
-        const campaigns = await messageService.getCampaigns({ projectId, id, name });
+        const { projectId, campaignId, campaignName } = req.query;
+        const campaigns = await messageService.getCampaigns({ projectId, campaignId, campaignName });
         if (!campaigns || campaigns.length === 0) {
             return res.status(404).json({ error: 'No campaigns found' });
         }
