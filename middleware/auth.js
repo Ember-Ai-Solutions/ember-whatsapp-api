@@ -34,6 +34,8 @@ function jwtTokenValidation(role) {
                         return res.status(401).json({ message: 'Project not found' });
                     } else if (project.members[response.data.userId]) {
                         tokenRoleLevel = project.members[response.data.userId].role;
+                        req.body.projectId = project._id;
+                        req.body.fromPhoneNumber = project.integrations.whatsApp.phoneNumber;
                         req.body.wabaId = project.integrations.whatsApp.businessAccountId;
                         req.body.phoneId = project.integrations.whatsApp.phoneId;
                         req.body.apiToken = project.integrations.whatsApp.apiToken;
@@ -51,6 +53,8 @@ function jwtTokenValidation(role) {
                     logger.error('AuthMiddleware: Project not found for service', { projectId: response.data.projectId });
                     return res.status(401).json({ message: 'Project not found' });
                 } else {
+                    req.body.projectId = project._id;
+                    req.body.fromPhoneNumber = project.integrations.whatsApp.phoneNumber;
                     req.body.wabaId = project.integrations.whatsApp.businessAccountId;
                     req.body.phoneId = project.integrations.whatsApp.phoneId;
                     req.body.apiToken = project.integrations.whatsApp.apiToken;

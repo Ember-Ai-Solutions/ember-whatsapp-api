@@ -4,4 +4,5 @@ module.exports = {
     mongoUri: process.env.MONGODB_URI,
     mongoClientsDbName: process.env.MONGO_CLIENTS_DB_NAME,
     mongoProjectsCollectionName: process.env.MONGO_PROJECTS_COLLECTION_NAME,
+    mongoCampaignsDbName: process.env.MONGO_CAMPAIGNS_DB_NAME,
 }; 

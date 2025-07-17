@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const environment = require('../config/environment');
 const logger = require('../config/logger');
 
@@ -30,4 +30,4 @@ async function close() {
     }
 }
 
-module.exports = { connect, getDbConnection, close }; 
+module.exports = { connect, getDbConnection, close, ObjectId }; 

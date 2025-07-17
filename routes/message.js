@@ -45,6 +45,12 @@ const router = express.Router();
  *         schema:
  *           type: string
  *         description: Unique identifier of the project. Required if using a user JWT. Not required for service JWT.
+ *       - in: query
+ *         name: campaignName
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Name of the campaign, used for identification and filtering.
  *     requestBody:
  *       required: true
  *       content:
@@ -86,32 +92,69 @@ const router = express.Router();
  *             schema:
  *               type: object
  *               properties:
- *                 success:
- *                   type: boolean
- *                   example: true
- *                 message:
+ *                 _id:
  *                   type: string
- *                   example: "Template messages sent. Success: 2, Failed: 0"
+ *                   description: Unique campaign identifier
+ *                   example: '507f1f77bcf86cd799439011'
+ *                 campaignName:
+ *                   type: string
+ *                   description: Name of the campaign
+ *                   example: 'Campaign 2024-01-15 10:30:00'
+ *                 templateName:
+ *                   type: string
+ *                   description: Name of the template used
+ *                   example: 'welcome_template'
+ *                 language:
+ *                   type: string
+ *                   description: Language code used for the template
+ *                   example: 'pt_BR'
+ *                 fromPhoneNumber:
+ *                   type: string
+ *                   description: Phone number that sent the messages
+ *                   example: '5511999999999'
+ *                 dateTime:
+ *                   type: string
+ *                   format: date-time
+ *                   description: Campaign execution timestamp
+ *                   example: '2024-01-15T10:30:00.000Z'
+ *                 total:
+ *                   type: integer
+ *                   description: Total number of messages sent
+ *                   example: 2
+ *                 success:
+ *                   type: integer
+ *                   description: Number of successfully sent messages
+ *                   example: 2
+ *                 failed:
+ *                   type: integer
+ *                   description: Number of failed messages
+ *                   example: 0
  *                 results:
  *                   type: array
+ *                   description: Detailed results for each message
  *                   items:
  *                     type: object
  *                     properties:
- *                       phone_number:
+ *                       phoneNumber:
  *                         type: string
+ *                         description: Recipient phone number
  *                         example: '5511999999999'
- *                       message_id:
+ *                       messageId:
  *                         type: string
+ *                         description: WhatsApp message ID
  *                         example: 'wamid.HBgMNTUxMTk5OTk5OTk5FQIAERgSODg3QzA4QzA4QzA4QzA4AA=='
  *                       status:
  *                         type: string
- *                         example: sent
+ *                         description: Message status
+ *                         example: 'sent'
  *                       success:
  *                         type: boolean
+ *                         description: Whether the message was sent successfully
  *                         example: true
  *                       error:
  *                         type: string
  *                         nullable: true
+ *                         description: Error message if the message failed
  *                         example: null
  *       400:
  *         description: Invalid input. Required fields are missing or malformed.
@@ -151,11 +194,15 @@ const router = express.Router();
  */
 router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
     try {
-        const { template_name, phone_messages, wabaId, apiToken, phoneId, language } = req.body;
+        const { template_name, phone_messages, wabaId, apiToken, phoneId, language, fromPhoneNumber, projectId } = req.body;
+        let { campaignName } = req.query;
 
-        if (!template_name || !phone_messages || !Array.isArray(phone_messages)) {
-            return res.status(400).json({ error: 'Invalid input: template_name and phone_messages array are required' });
+        campaignName = campaignName || `Campaign ${new Date().toISOString().replace('T', ' ').replace('Z', '')}`;
+
+        if (!template_name || !phone_messages || !Array.isArray(phone_messages) || !language) {
+            return res.status(400).json({ error: 'Invalid input: template_name, phone_messages array, and language are required' });
         }
+
 
         const phone_numbers = phone_messages.map(msg => msg.phone_number);
         const variablesList = phone_messages.map(msg => msg.variables || {});
@@ -167,12 +214,185 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
             phone_numbers,
             variablesList,
             phoneId,
-            language
+            languageCode: language,
+            fromPhoneNumber,
+            projectId,
+            campaignName
         });
 
         res.status(200).json(result);
     } catch (error) {
         logger.error('MessageRoute: Error in POST /message-template', { error: error.message });
+        res.status(500).json({ error: 'Internal server error', details: error.response?.data || error.message });
+    }
+});
+
+/**
+ * @swagger
+ * /message/campaign:
+ *   get:
+ *     summary: Get WhatsApp campaign data
+ *     description: |
+ *       Retrieve campaign data for a project. You can filter by campaign id and/or name.
+ *
+ *       - Requires JWT authentication with at least 'viewer' role for the project.
+ *       - The **`projectId`** parameter is optional.
+ *       - The **`id`** and **`name`** parameters are optional and can be used to filter the results.
+ *
+ *       **Parameter details:**
+ *       - `projectId`: Unique identifier of the project. (optional)
+ *       - `id`: Unique identifier of the campaign. (optional)
+ *       - `name`: Name of the campaign. (optional)
+ *
+ *       **Examples:**
+ *       - Get all campaigns for a project:
+ *         `GET /message/campaign?projectId=123`
+ *       - Get a campaign by id:
+ *         `GET /message/campaign?projectId=123&id=507f1f77bcf86cd799439011`
+ *       - Get a campaign by name:
+ *         `GET /message/campaign?projectId=123&name=Campaign%202024-01-15%2010:30:00`
+ *
+ *     tags:
+ *       - Message
+ *     parameters:
+ *       - in: query
+ *         name: projectId
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Unique identifier of the project.
+ *       - in: query
+ *         name: id
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Unique identifier of the campaign.
+ *       - in: query
+ *         name: name
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Name of the campaign.
+ *     responses:
+ *       200:
+ *         description: Campaign(s) found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                     description: Unique campaign identifier
+ *                     example: '507f1f77bcf86cd799439011'
+ *                   campaignName:
+ *                     type: string
+ *                     description: Name of the campaign
+ *                     example: 'Campaign 2024-01-15 10:30:00'
+ *                   templateName:
+ *                     type: string
+ *                     description: Name of the template used
+ *                     example: 'welcome_template'
+ *                   language:
+ *                     type: string
+ *                     description: Language code used for the template
+ *                     example: 'pt_BR'
+ *                   fromPhoneNumber:
+ *                     type: string
+ *                     description: Phone number that sent the messages
+ *                     example: '5511999999999'
+ *                   dateTime:
+ *                     type: string
+ *                     format: date-time
+ *                     description: Campaign execution timestamp
+ *                     example: '2024-01-15T10:30:00.000Z'
+ *                   total:
+ *                     type: integer
+ *                     description: Total number of messages sent
+ *                     example: 2
+ *                   success:
+ *                     type: integer
+ *                     description: Number of successfully sent messages
+ *                     example: 2
+ *                   failed:
+ *                     type: integer
+ *                     description: Number of failed messages
+ *                     example: 0
+ *                   results:
+ *                     type: array
+ *                     description: Detailed results for each message
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         phoneNumber:
+ *                           type: string
+ *                           description: Recipient phone number
+ *                           example: '5511999999999'
+ *                         messageId:
+ *                           type: string
+ *                           description: WhatsApp message ID
+ *                           example: 'wamid.HBgMNTUxMTk5OTk5OTk5FQIAERgSODg3QzA4QzA4QzA4QzA4AA=='
+ *                         status:
+ *                           type: string
+ *                           description: Message status
+ *                           example: 'sent'
+ *                         success:
+ *                           type: boolean
+ *                           description: Whether the message was sent successfully
+ *                           example: true
+ *                         error:
+ *                           type: string
+ *                           nullable: true
+ *                           description: Error message if the message failed
+ *                           example: null
+ *       400:
+ *         description: Invalid input. Required fields are missing or malformed.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid input: projectId is required"
+ *       401:
+ *         description: Unauthorized. JWT is missing, invalid, or does not have the required role.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Unauthorized
+ *       500:
+ *         description: Internal server error. An unexpected error occurred.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Internal server error
+ *                 details:
+ *                   type: string
+ *                   example: Error details or stack trace
+ *     security:
+ *       - bearerAuth: []
+ */
+router.get('/campaign', jwtTokenValidation('viewer'), async (req, res) => {
+    try {
+        const { projectId, id, name } = req.query;
+        const campaigns = await messageService.getCampaigns({ projectId, id, name });
+        if (!campaigns || campaigns.length === 0) {
+            return res.status(404).json({ error: 'No campaigns found' });
+        }
+        res.status(200).json(campaigns);
+    } catch (error) {
+        logger.error('MessageRoute: Error in GET /message/campaign', { error: error.message });
         res.status(500).json({ error: 'Internal server error', details: error.response?.data || error.message });
     }
 });
