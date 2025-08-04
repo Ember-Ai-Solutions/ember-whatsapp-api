@@ -171,7 +171,7 @@ async function saveCampaign(campaignData, projectId) {
     }
 }
 
-async function getCampaigns({ projectId, id, name }) {
+async function getCampaigns({ projectId, campaignId, campaignName }) {
     try {
         if (!projectId) {
             throw new Error('projectId is required');
@@ -180,14 +180,14 @@ async function getCampaigns({ projectId, id, name }) {
         const projectIdString = projectId.toString();
         const campaignsCollection = campaignsDb.collection(projectIdString);
         const query = {};
-        if (id) {
-            query._id = typeof id === 'string' ? new mongodbService.ObjectId(id) : id;
+        if (campaignId) {
+            query._id = typeof campaignId === 'string' ? new mongodbService.ObjectId(campaignId) : campaignId;
         }
-        if (name) {
-            query.campaignName = name;
+        if (campaignName) {
+            query.campaignName = campaignName;
         }
         const campaigns = await campaignsCollection.find(query).toArray();
-        logger.info('MessageService: Campaigns fetched', { projectId, id, name, count: campaigns.length });
+        logger.info('MessageService: Campaigns fetched', { projectId, campaignId, campaignName, count: campaigns.length });
         return campaigns;
     } catch (error) {
         logger.error('MessageService: Error fetching campaigns', { error: error.response?.data || error.message });
