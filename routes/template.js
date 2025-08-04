@@ -18,10 +18,29 @@ const router = express.Router();
  *       **Parameter details:**
  *       - `projectId`: Unique identifier of the project. **Required if using a user JWT. Not required for service JWT.**
  *       - `name`: Name of the template to create. (required)
- *       - `category`: Category of the template (e.g., TRANSACTIONAL, MARKETING). (required)
+ *       - `category`: Category of the template (e.g., UTILITY, MARKETING). (required)
  *       - `language`: Language code for the template (e.g., en_US, pt_BR). (required)
  *       - `components`: Components of the template (body, header, footer, buttons, etc). (required)
  *       - `parameter_format`: Format for template parameters (optional).
+ *
+ *       **Component Types:**
+ *       - **HEADER**: Text, image, video, or document header
+ *         - `type`: "header"
+ *         - `format`: "text" | "image" | "video" | "document"
+ *         - `text`: Text content (for text format)
+ *         - `example`: Example values for variables
+ *       - **BODY**: Main message content
+ *         - `type`: "body"
+ *         - `text`: Text content with variables {{1}}, {{2}}, etc.
+ *         - `example`: Example values for variables
+ *       - **FOOTER**: Footer text
+ *         - `type`: "footer"
+ *         - `text`: Footer text content
+ *       - **BUTTONS**: Interactive buttons
+ *         - `type`: "button"
+ *         - `sub_type`: "quick_reply" | "url" | "phone_number"
+ *         - `index`: Button position (0-2)
+ *         - `parameters`: Button parameters
  *
  *       **Examples:**
  *       - Create a template:
@@ -29,9 +48,34 @@ const router = express.Router();
  *         Body:
  *         {
  *           "name": "order_confirmation",
- *           "category": "TRANSACTIONAL",
+ *           "category": "UTILITY",
  *           "language": "pt_BR",
- *           "components": [ ... ],
+ *           "components": [
+ *             {
+ *               "type": "HEADER",
+ *               "format": "text",
+ *               "text": "Pedido Confirmado"
+ *             },
+ *             {
+ *               "type": "BODY",
+ *               "text": "Olá {{1}}, seu pedido #{{2}} foi confirmado e será enviado em {{3}} dias úteis. Valor total: R$ {{4}}"
+ *             },
+ *             {
+ *               "type": "FOOTER",
+ *               "text": "Obrigado por escolher nossa loja!"
+ *             },
+ *             {
+ *               "type": "BUTTONS",
+ *               "sub_type": "quick_reply",
+ *               "index": 0,
+ *               "parameters": [
+ *                 {
+ *                   "type": "text",
+ *                   "text": "Acompanhar Pedido"
+ *                 }
+ *               ]
+ *             }
+ *           ],
  *           "parameter_format": "numbered"
  *         }
  *
@@ -59,11 +103,11 @@ const router = express.Router();
  *               name:
  *                 type: string
  *                 description: Name of the template to create.
- *                 example: welcome_template
+ *                 example: order_confirmation
  *               category:
  *                 type: string
- *                 description: Category of the template (e.g., TRANSACTIONAL, MARKETING).
- *                 example: TRANSACTIONAL
+ *                 description: Category of the template (e.g., UTILITY, MARKETING).
+ *                 example: UTILITY
  *               language:
  *                 type: string
  *                 description: Language code for the template (e.g., en_US, pt_BR).
@@ -73,10 +117,72 @@ const router = express.Router();
  *                 description: Components of the template (body, header, footer, buttons, etc).
  *                 items:
  *                   type: object
+ *                   properties:
+ *                     type:
+ *                       type: string
+ *                       description: Component type (HEADER, BODY, FOOTER, BUTTONS)
+ *                       example: HEADER
+ *                     format:
+ *                       type: string
+ *                       description: Format for header component (text, image, video, document)
+ *                       example: text
+ *                     text:
+ *                       type: string
+ *                       description: Text content for the component
+ *                       example: "Pedido Confirmado"
+ *                     sub_type:
+ *                       type: string
+ *                       description: Sub-type for button component (quick_reply, url, phone_number)
+ *                       example: quick_reply
+ *                     index:
+ *                       type: integer
+ *                       description: Button position (0-2)
+ *                       example: 0
+ *                     parameters:
+ *                       type: array
+ *                       description: Parameters for buttons or variables
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           type:
+ *                             type: string
+ *                             description: Parameter type
+ *                             example: text
+ *                           text:
+ *                             type: string
+ *                             description: Parameter text value
+ *                             example: "Acompanhar Pedido"
  *               parameter_format:
  *                 type: string
  *                 description: Format for template parameters (optional).
  *                 example: numbered
+ *           example:
+ *             name: "order_confirmation"
+ *             category: "UTILITY"
+ *             language: "pt_BR"
+ *             components:
+ *               - type: "HEADER"
+ *                 format: "text"
+ *                 text: "Pedido Confirmado"
+ *               - type: "BODY"
+ *                 text: "Olá {{1}}, seu pedido #{{2}} foi confirmado e será enviado em {{3}} dias úteis. Valor total: R$ {{4}}"
+ *               - type: "FOOTER"
+ *                 text: "Obrigado por escolher nossa loja!"
+ *               - type: "BUTTONS"
+ *                 sub_type: "quick_reply"
+ *                 index: 0
+ *                 parameters:
+ *                   - type: "text"
+ *                     text: "Acompanhar Pedido"
+ *               - type: "BUTTONS"
+ *                 sub_type: "url"
+ *                 index: 1
+ *                 parameters:
+ *                   - type: "text"
+ *                     text: "Ver Detalhes"
+ *                   - type: "url"
+ *                     url: "https://exemplo.com/pedido"
+ *             parameter_format: "numbered"
  *     responses:
  *       201:
  *         description: Template created successfully.
@@ -90,10 +196,10 @@ const router = express.Router();
  *                   example: 1234567890
  *                 name:
  *                   type: string
- *                   example: welcome_template
+ *                   example: order_confirmation
  *                 content:
  *                   type: string
- *                   example: Welcome, {{1}}!
+ *                   example: Pedido Confirmado
  *       400:
  *         description: Invalid input. Required fields are missing or malformed.
  *         content:
