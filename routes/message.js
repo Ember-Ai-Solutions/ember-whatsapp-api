@@ -418,7 +418,8 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
  */
 router.get('/campaign', jwtTokenValidation('viewer'), async (req, res) => {
     try {
-        const { projectId, campaignId, campaignName } = req.query;
+        const { campaignId, campaignName } = req.query;
+        const { projectId } = req.body;
         const campaigns = await messageService.getCampaigns({ projectId, campaignId, campaignName });
         if (!campaigns || campaigns.length === 0) {
             return res.status(404).json({ error: 'No campaigns found' });
