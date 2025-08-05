@@ -39,6 +39,7 @@ function jwtTokenValidation(role) {
                         req.body.wabaId = project.integrations.whatsApp.businessAccountId;
                         req.body.phoneId = project.integrations.whatsApp.phoneId;
                         req.body.apiToken = project.integrations.whatsApp.apiToken;
+                        req.body.appId = project.integrations.whatsApp.appId;
                     } else {
                         logger.error('AuthMiddleware: User does not have permission for this project', { userId: response.data.userId, projectId: req.query.projectId });
                         return res.status(401).json({ message: 'You do not have permission to access this project' });
@@ -58,6 +59,7 @@ function jwtTokenValidation(role) {
                     req.body.wabaId = project.integrations.whatsApp.businessAccountId;
                     req.body.phoneId = project.integrations.whatsApp.phoneId;
                     req.body.apiToken = project.integrations.whatsApp.apiToken;
+                    req.body.appId = project.integrations.whatsApp.appId;
                     tokenRoleLevel = roleLevels.indexOf(response.data.role);
                 }
             }

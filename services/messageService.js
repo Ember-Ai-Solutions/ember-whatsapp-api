@@ -30,13 +30,7 @@ async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_num
 
                 const variables = variablesList && variablesList[idx] ? variablesList[idx] : {};
                 if (variables && Object.keys(variables).length > 0) {
-                    messageData.template.components = [{
-                        type: 'body',
-                        parameters: Object.keys(variables).map(key => ({
-                            type: 'text',
-                            text: variables[key]
-                        }))
-                    }];
+                    messageData.template.components = variables;
                 }
 
                 const response = await axios.post(

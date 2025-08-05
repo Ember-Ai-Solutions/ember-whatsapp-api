@@ -21,18 +21,169 @@ const router = express.Router();
  *       - `language`: Language code for the template (e.g., en_US, pt_BR). (required)
  *       - `phone_messages`: List of phone numbers and variables for each message. (required)
  *         - `phone_number`: Recipient phone number in international format. (required)
- *         - `variables`: Key-value pairs for template variables (optional).
+ *         - `variables`: Array of variable components for template (header, body, button, etc.). (required)
+ *           - `type`: Component type (header, body, button, footer)
+ *           - `parameters`: Array of parameters for the component
+ *             - `type`: Parameter type (text, image, document, video)
+ *             - `text`: Text value for text parameters
+ *             - `parameter_name`: Parameter name for named parameters (optional)
+ *             - `image`: Image object for image parameters (optional)
+ *             - `index`: Button index for button parameters (optional)
+ *             - `sub_type`: Button sub-type for button parameters (optional)
  *
  *       **Examples:**
- *       - Send a template message to multiple recipients:
+ *       - Send a template message with positional parameters:
  *         `POST /message/template`
  *         Body:
  *         {
- *           "template_name": "order_confirmation",
- *           "language": "pt_BR",
+ *           "template_name": "sale_announcement",
+ *           "language": "en_US",
  *           "phone_messages": [
- *             { "phone_number": "5511999999999", "variables": { "1": "John" } },
- *             { "phone_number": "5511888888888", "variables": { "1": "Maria" } }
+ *             {
+ *               "phone_number": "5511999999999",
+ *               "variables": [
+ *                 {
+ *                   "type": "header",
+ *                   "parameters": [
+ *                     {
+ *                       "type": "text",
+ *                       "text": "December 1st"
+ *                     }
+ *                   ]
+ *                 },
+ *                 {
+ *                   "type": "body",
+ *                   "parameters": [
+ *                     {
+ *                       "type": "text",
+ *                       "text": "50"
+ *                     },
+ *                     {
+ *                       "type": "text",
+ *                       "text": "December 31st"
+ *                     }
+ *                   ]
+ *                 }
+ *               ]
+ *             }
+ *           ]
+ *         }
+ *
+ *       - Send a template message with named parameters:
+ *         `POST /message/template`
+ *         Body:
+ *         {
+ *           "template_name": "sale_announcement_named",
+ *           "language": "en_US",
+ *           "phone_messages": [
+ *             {
+ *               "phone_number": "5511999999999",
+ *               "variables": [
+ *                 {
+ *                   "type": "header",
+ *                   "parameters": [
+ *                     {
+ *                       "type": "text",
+ *                       "text": "December 1st",
+ *                       "parameter_name": "sales_start_date"
+ *                     }
+ *                   ]
+ *                 },
+ *                 {
+ *                   "type": "body",
+ *                   "parameters": [
+ *                     {
+ *                       "type": "text",
+ *                       "text": "50",
+ *                       "parameter_name": "discount"
+ *                     },
+ *                     {
+ *                       "type": "text",
+ *                       "text": "December 31st",
+ *                       "parameter_name": "expiration_date"
+ *                     }
+ *                   ]
+ *                 }
+ *               ]
+ *             }
+ *           ]
+ *         }
+ *
+ *       - Send a template message with CTA button:
+ *         `POST /message/template`
+ *         Body:
+ *         {
+ *           "template_name": "sale_announcement_positional",
+ *           "language": "en_US",
+ *           "phone_messages": [
+ *             {
+ *               "phone_number": "5511999999999",
+ *               "variables": [
+ *                 {
+ *                   "type": "header",
+ *                   "parameters": [
+ *                     {
+ *                       "type": "text",
+ *                       "text": "December 1st"
+ *                     }
+ *                   ]
+ *                 },
+ *                 {
+ *                   "type": "body",
+ *                   "parameters": [
+ *                     {
+ *                       "type": "text",
+ *                       "text": "50"
+ *                     },
+ *                     {
+ *                       "type": "text",
+ *                       "text": "December 31st"
+ *                     }
+ *                   ]
+ *                 },
+ *                 {
+ *                   "type": "button",
+ *                   "index": "0",
+ *                   "sub_type": "url",
+ *                   "parameters": [
+ *                     {
+ *                       "type": "text",
+ *                       "text": "50"
+ *                     },
+ *                     {
+ *                       "type": "text",
+ *                       "text": "1234565"
+ *                     }
+ *                   ]
+ *                 }
+ *               ]
+ *             }
+ *           ]
+ *         }
+ *
+ *       - Send a template message with media header:
+ *         `POST /message/template`
+ *         Body:
+ *         {
+ *           "template_name": "sale_announcement_media",
+ *           "language": "en_US",
+ *           "phone_messages": [
+ *             {
+ *               "phone_number": "5511999999999",
+ *               "variables": [
+ *                 {
+ *                   "type": "header",
+ *                   "parameters": [
+ *                     {
+ *                       "type": "image",
+ *                       "image": {
+ *                         "link": "https://bucket.ember.app.br/files/document_sample.pdf"
+ *                       }
+ *                     }
+ *                   ]
+ *                 }
+ *               ]
+ *             }
  *           ]
  *         }
  *
@@ -81,9 +232,65 @@ const router = express.Router();
  *                       description: Recipient phone number in international format.
  *                       example: '5511999999999'
  *                     variables:
- *                       type: object
- *                       description: Key-value pairs for template variables (optional).
- *                       example: { "1": "John", "2": "123456" }
+ *                       type: array
+ *                       description: Array of variable components for template (header, body, button, etc.).
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           type:
+ *                             type: string
+ *                             description: Component type (header, body, button, footer)
+ *                             example: 'header'
+ *                           parameters:
+ *                             type: array
+ *                             description: Parameters for the component
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 type:
+ *                                   type: string
+ *                                   description: Parameter type (text, image, document, video)
+ *                                   example: 'text'
+ *                                 text:
+ *                                   type: string
+ *                                   description: Text value for text parameters
+ *                                   example: 'December 1st'
+ *                                 parameter_name:
+ *                                   type: string
+ *                                   description: Parameter name for named parameters (optional)
+ *                                   example: 'sales_start_date'
+ *                                 image:
+ *                                   type: object
+ *                                   description: Image object for image parameters (optional)
+ *                                   properties:
+ *                                     link:
+ *                                       type: string
+ *                                       description: URL of the image
+ *                                       example: 'https://bucket.ember.app.br/files/image.jpg'
+ *                                 index:
+ *                                   type: string
+ *                                   description: Button index for button parameters (optional)
+ *                                   example: '0'
+ *                                 sub_type:
+ *                                   type: string
+ *                                   description: Button sub-type for button parameters (optional)
+ *                                   example: 'url'
+ *           example:
+ *             template_name: "sale_announcement"
+ *             language: "en_US"
+ *             phone_messages:
+ *               - phone_number: "5511999999999"
+ *                 variables:
+ *                   - type: "header"
+ *                     parameters:
+ *                       - type: "text"
+ *                         text: "December 1st"
+ *                   - type: "body"
+ *                     parameters:
+ *                       - type: "text"
+ *                         text: "50"
+ *                       - type: "text"
+ *                         text: "December 31st"
  *     responses:
  *       200:
  *         description: Messages sent successfully.

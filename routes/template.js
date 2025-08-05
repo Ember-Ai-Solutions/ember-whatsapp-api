@@ -1,5 +1,6 @@
 const express = require('express');
 const templateService = require('../services/templateService');
+const metaService = require('../services/metaService');
 const logger = require('../config/logger');
 const { jwtTokenValidation } = require('../middleware/auth');
 const router = express.Router();
@@ -21,7 +22,7 @@ const router = express.Router();
  *       - `category`: Category of the template (e.g., UTILITY, MARKETING). (required)
  *       - `language`: Language code for the template (e.g., en_US, pt_BR). (required)
  *       - `components`: Components of the template (body, header, footer, buttons, etc). (required)
- *       - `parameter_format`: Format for template parameters (optional).
+ *       - `parameter_format`: Format for template parameters (positional, named) (optional).
  *
  *       **Component Types:**
  *       - **HEADER**: Text, image, video, or document header
@@ -29,55 +30,370 @@ const router = express.Router();
  *         - `format`: "text" | "image" | "video" | "document"
  *         - `text`: Text content (for text format)
  *         - `example`: Example values for variables
+ *           - For positional parameters: `{"header_text": ["value"]}`
+ *           - For named parameters: `{"header_text_named_params": [{"param_name": "name", "example": "value"}]}`
  *       - **BODY**: Main message content
  *         - `type`: "body"
- *         - `text`: Text content with variables {{1}}, {{2}}, etc.
+ *         - `text`: Text content with variables {{1}}, {{2}}, etc. or {{variable_name}}
  *         - `example`: Example values for variables
+ *           - For positional parameters: `{"body_text": ["value1", "value2", "value3"]}`
+ *           - For named parameters: `{"body_text_named_params": [{"param_name": "name1", "example": "value1"}, {"param_name": "name2", "example": "value2"}]}`
  *       - **FOOTER**: Footer text
  *         - `type`: "footer"
  *         - `text`: Footer text content
  *       - **BUTTONS**: Interactive buttons
- *         - `type`: "button"
- *         - `sub_type`: "quick_reply" | "url" | "phone_number"
- *         - `index`: Button position (0-2)
- *         - `parameters`: Button parameters
+ *         - `type`: "BUTTONS"
+ *         - `buttons`: Array of button objects
+ *           - `type`: "QUICK_REPLY" | "URL" | "PHONE_NUMBER"
+ *           - `text`: Button text
+ *           - `phone_number`: Phone number for PHONE_NUMBER type
+ *           - `url`: URL for URL type (can include variables like {{1}})
+ *           - `example`: Array of example values for URL variables
  *
  *       **Examples:**
- *       - Create a template:
+ *       - Create a template with positional parameters:
  *         `POST /template`
  *         Body:
  *         {
- *           "name": "order_confirmation",
- *           "category": "UTILITY",
- *           "language": "pt_BR",
+ *           "name": "sale_announcement",
+ *           "category": "MARKETING",
+ *           "language": "en_US",
  *           "components": [
  *             {
  *               "type": "HEADER",
- *               "format": "text",
- *               "text": "Pedido Confirmado"
+ *               "format": "TEXT",
+ *               "text": "Our new sale starts {{1}}!",
+ *               "example": {
+ *                 "header_text": [
+ *                   "December 1st"
+ *                 ]
+ *               }
  *             },
  *             {
  *               "type": "BODY",
- *               "text": "Olá {{1}}, seu pedido #{{2}} foi confirmado e será enviado em {{3}} dias úteis. Valor total: R$ {{4}}"
+ *               "text": "Get up to {{1}}% off on all items. Valid until {{2}}.",
+ *               "example": {
+ *                 "body_text": [
+ *                   [
+ *                     "50",
+ *                     "December 31st"
+ *                   ]
+ *                 ]
+ *               }
  *             },
  *             {
  *               "type": "FOOTER",
- *               "text": "Obrigado por escolher nossa loja!"
+ *               "text": "Don't miss out on these amazing deals!"
+ *             }
+ *           ],
+ *           "parameter_format": "positional"
+ *         }
+ *
+ *       - Create a template with media header:
+ *         `POST /template`
+ *         Body:
+ *         {
+ *           "name": "sale_announcement_media",
+ *           "category": "MARKETING",
+ *           "language": "en_US",
+ *           "components": [
+ *             {
+ *               "type": "HEADER",
+ *               "format": "DOCUMENT",
+ *               "example": {
+ *                 "header_handle": [
+ *                   "https://bucket.ember.app.br/files/document-sample.pdf"
+ *                 ]
+ *               }
+ *             },
+ *             {
+ *               "type": "BODY",
+ *               "text": "Get up to 50% off on all items. Valid until tomorrow."
+ *             },
+ *             {
+ *               "type": "FOOTER",
+ *               "text": "Don't miss out on these amazing deals!"
+ *             }
+ *           ],
+ *           "parameter_format": "positional"
+ *         }
+ *
+ *       - Create a template with named parameters:
+ *         `POST /template`
+ *         Body:
+ *         {
+ *           "name": "sale_announcement_named",
+ *           "category": "MARKETING",
+ *           "language": "en_US",
+ *           "components": [
+ *             {
+ *               "type": "HEADER",
+ *               "format": "TEXT",
+ *               "text": "Our new sale starts {{sale_start_date}}!",
+ *               "example": {
+ *                 "header_text_named_params": [
+ *                   {
+ *                     "param_name": "sale_start_date",
+ *                     "example": "December 1st"
+ *                   }
+ *                 ]
+ *               }
+ *             },
+ *             {
+ *               "type": "BODY",
+ *               "text": "Get up to {{discount}}% off on all items. Valid until {{expiration_date}}.",
+ *               "example": {
+ *                 "body_text_named_params": [
+ *                   {
+ *                     "param_name": "discount",
+ *                     "example": "50"
+ *                   },
+ *                   {
+ *                     "param_name": "expiration_date",
+ *                     "example": "December 31st"
+ *                   }
+ *                 ]
+ *               }
+ *             },
+ *             {
+ *               "type": "FOOTER",
+ *               "text": "Don't miss out on these amazing deals!"
+ *             }
+ *           ],
+ *           "parameter_format": "named"
+ *         }
+ *
+ *       - Create a template with CTA buttons:
+ *         `POST /template`
+ *         Body:
+ *         {
+ *           "name": "sale_announcement_positional",
+ *           "category": "MARKETING",
+ *           "language": "en_US",
+ *           "components": [
+ *             {
+ *               "type": "HEADER",
+ *               "format": "TEXT",
+ *               "text": "Our new sale starts {{1}}!",
+ *               "example": {
+ *                 "header_text": [
+ *                   "December 1st"
+ *                 ]
+ *               }
+ *             },
+ *             {
+ *               "type": "BODY",
+ *               "text": "Get up to {{1}}% off on all items. Valid until {{2}}.",
+ *               "example": {
+ *                 "body_text": [
+ *                   [
+ *                     "50",
+ *                     "December 31st"
+ *                   ]
+ *                 ]
+ *               }
+ *             },
+ *             {
+ *               "type": "FOOTER",
+ *               "text": "Don't miss out on these amazing deals!"
  *             },
  *             {
  *               "type": "BUTTONS",
- *               "sub_type": "quick_reply",
- *               "index": 0,
- *               "parameters": [
+ *               "buttons": [
  *                 {
- *                   "type": "text",
- *                   "text": "Acompanhar Pedido"
+ *                   "type": "PHONE_NUMBER",
+ *                   "text": "Call",
+ *                   "phone_number": "15550051310"
+ *                 },
+ *                 {
+ *                   "type": "URL",
+ *                   "text": "Shop Now",
+ *                   "url": "https://www.luckyshrub.com/shop/{{1}}",
+ *                   "example": [
+ *                     "123456"
+ *                   ]
  *                 }
  *               ]
  *             }
  *           ],
- *           "parameter_format": "numbered"
+ *           "parameter_format": "positional"
  *         }
+ *
+ *       - Create a template with quick reply buttons:
+ *         `POST /template`
+ *         Body:
+ *         {
+ *           "name": "sale_announcement_buttons",
+ *           "category": "MARKETING",
+ *           "language": "en_US",
+ *           "components": [
+ *             {
+ *               "type": "HEADER",
+ *               "format": "TEXT",
+ *               "text": "Our new sale starts {{1}}!",
+ *               "example": {
+ *                 "header_text": [
+ *                   "December 1st"
+ *                 ]
+ *               }
+ *             },
+ *             {
+ *               "type": "BODY",
+ *               "text": "Get up to {{1}}% off on all items. Valid until {{2}}.",
+ *               "example": {
+ *                 "body_text": [
+ *                   [
+ *                     "50",
+ *                     "December 31st"
+ *                   ]
+ *                 ]
+ *               }
+ *             },
+ *             {
+ *               "type": "FOOTER",
+ *               "text": "Don't miss out on these amazing deals!"
+ *             },
+ *             {
+ *               "type": "BUTTONS",
+ *               "buttons": [
+ *                 {
+ *                   "type": "QUICK_REPLY",
+ *                   "text": "Let's go!"
+ *                 },
+ *                 {
+ *                   "type": "QUICK_REPLY",
+ *                   "text": "Buy now"
+ *                 },
+ *                 {
+ *                   "type": "QUICK_REPLY",
+ *                   "text": "Unsubscribe"
+ *                 }
+ *               ]
+ *             }
+ *           ],
+ *           "parameter_format": "positional"
+ *         }
+ *
+ *       **Component Examples:**
+ *       - Header with positional parameters:
+ *         ```json
+ *         {
+ *           "type": "HEADER",
+ *           "format": "TEXT",
+ *           "text": "Our new sale starts {{1}}!",
+ *           "example": {
+ *             "header_text": [
+ *               "December 1st"
+ *             ]
+ *           }
+ *         }
+ *         ```
+ *
+ *       - Header with named parameters:
+ *         ```json
+ *         {
+ *           "type": "HEADER",
+ *           "format": "TEXT",
+ *           "text": "Our new sale starts {{sale_start_date}}!",
+ *           "example": {
+ *             "header_text_named_params": [
+ *               {
+ *                 "param_name": "sale_start_date",
+ *                 "example": "December 1st"
+ *               }
+ *             ]
+ *           }
+ *         }
+ *         ```
+ *
+ *       - Body with positional parameters:
+ *         ```json
+ *         {
+ *           "type": "BODY",
+ *           "text": "Shop now through {{1}} and use code {{2}} to get {{3}} off of all merchandise.",
+ *           "example": {
+ *             "body_text": [
+ *               "the end of August","25OFF","25%"
+ *             ]
+ *           }
+ *         }
+ *         ```
+ *
+ *       - Body with named parameters:
+ *         ```json
+ *         {
+ *           "type": "BODY",
+ *           "text": "Your {{order_id}}, is ready {{customer_name}}.",
+ *           "example": {
+ *             "body_text_named_params": [
+ *               {
+ *                 "param_name": "order_id",
+ *                 "example": "335628"
+ *               },
+ *               {
+ *                 "param_name": "customer_name",
+ *                 "example": "Shiva"
+ *               }
+ *             ]
+ *           }
+ *         }
+ *         ```
+ *
+ *       - Buttons with quick replies:
+ *         ```json
+ *         {
+ *           "type": "BUTTONS",
+ *           "buttons": [
+ *             {
+ *               "type": "QUICK_REPLY",
+ *               "text": "Let's go!"
+ *             },
+ *             {
+ *               "type": "QUICK_REPLY",
+ *               "text": "Buy now"
+ *             },
+ *             {
+ *               "type": "QUICK_REPLY",
+ *               "text": "Unsubscribe"
+ *             }
+ *           ]
+ *         }
+ *         ```
+ *
+ *       - Buttons with CTA actions:
+ *         ```json
+ *         {
+ *           "type": "BUTTONS",
+ *           "buttons": [
+ *             {
+ *               "type": "PHONE_NUMBER",
+ *               "text": "Call",
+ *               "phone_number": "15550051310"
+ *             },
+ *             {
+ *               "type": "URL",
+ *               "text": "Shop Now",
+ *               "url": "https://www.luckyshrub.com/shop/{{1}}",
+ *               "example": [
+ *                 "123456"
+ *               ]
+ *             }
+ *           ]
+ *         }
+ *         ```
+ *
+ *       - Header with media:
+ *         ```json
+ *         {
+ *           "type": "HEADER",
+ *           "format": "DOCUMENT",
+ *           "example": {
+ *             "header_handle": [
+ *               "https://bucket.ember.app.br/files/document-sample.pdf"
+ *             ]
+ *           }
+ *         }
+ *         ```
  *
  *     tags:
  *       - Template
@@ -138,51 +454,80 @@ const router = express.Router();
  *                       type: integer
  *                       description: Button position (0-2)
  *                       example: 0
- *                     parameters:
+ *                     example:
+ *                       type: object
+ *                       description: Example values for the component
+ *                       properties:
+ *                         header_text:
+ *                           type: array
+ *                           description: Example values for header text
+ *                         header_text_named_params:
+ *                           type: array
+ *                           description: Example values for named header parameters
+ *                         body_text:
+ *                           type: array
+ *                           description: Example values for body text
+ *                         body_text_named_params:
+ *                           type: array
+ *                           description: Example values for named body parameters
+ *                         header_handle:
+ *                           type: array
+ *                           description: Example media handles for header
+ *                     buttons:
  *                       type: array
- *                       description: Parameters for buttons or variables
+ *                       description: Array of buttons for BUTTONS component
  *                       items:
  *                         type: object
  *                         properties:
  *                           type:
  *                             type: string
- *                             description: Parameter type
- *                             example: text
+ *                             description: Button type (QUICK_REPLY, URL, PHONE_NUMBER)
+ *                             example: QUICK_REPLY
  *                           text:
  *                             type: string
- *                             description: Parameter text value
- *                             example: "Acompanhar Pedido"
+ *                             description: Button text
+ *                             example: "Let's go!"
+ *                           phone_number:
+ *                             type: string
+ *                             description: Phone number for PHONE_NUMBER buttons
+ *                             example: "15550051310"
+ *                           url:
+ *                             type: string
+ *                             description: URL for URL buttons (can include variables)
+ *                             example: "https://www.luckyshrub.com/shop/{{1}}"
+ *                           example:
+ *                             type: array
+ *                             description: Example values for URL variables
+ *                             example: ["123456"]
  *               parameter_format:
  *                 type: string
  *                 description: Format for template parameters (optional).
- *                 example: numbered
+ *                 example: positional
  *           example:
- *             name: "order_confirmation"
- *             category: "UTILITY"
- *             language: "pt_BR"
+ *             name: "sale_announcement"
+ *             category: "MARKETING"
+ *             language: "en_US"
  *             components:
  *               - type: "HEADER"
- *                 format: "text"
- *                 text: "Pedido Confirmado"
+ *                 format: "TEXT"
+ *                 text: "Our new sale starts {{1}}!"
+ *                 example:
+ *                   header_text:
+ *                     - "December 1st"
  *               - type: "BODY"
- *                 text: "Olá {{1}}, seu pedido #{{2}} foi confirmado e será enviado em {{3}} dias úteis. Valor total: R$ {{4}}"
+ *                 text: "Get up to {{1}}% off on all items. Valid until {{2}}."
+ *                 example:
+ *                   body_text:
+ *                     - ["50", "December 31st"]
  *               - type: "FOOTER"
- *                 text: "Obrigado por escolher nossa loja!"
+ *                 text: "Don't miss out on these amazing deals!"
  *               - type: "BUTTONS"
- *                 sub_type: "quick_reply"
- *                 index: 0
- *                 parameters:
- *                   - type: "text"
- *                     text: "Acompanhar Pedido"
- *               - type: "BUTTONS"
- *                 sub_type: "url"
- *                 index: 1
- *                 parameters:
- *                   - type: "text"
- *                     text: "Ver Detalhes"
- *                   - type: "url"
- *                     url: "https://exemplo.com/pedido"
- *             parameter_format: "numbered"
+ *                 buttons:
+ *                   - type: "QUICK_REPLY"
+ *                     text: "Let's go!"
+ *                   - type: "QUICK_REPLY"
+ *                     text: "Buy now"
+ *             parameter_format: "positional"
  *     responses:
  *       201:
  *         description: Template created successfully.
@@ -238,11 +583,19 @@ const router = express.Router();
  */
 router.post('/', jwtTokenValidation('editor'), async (req, res) => {
     try {
-        const { wabaId, apiToken } = req.body;
+        const { wabaId, apiToken, appId } = req.body;
         const { name, category, language, components, parameter_format } = req.body;
         if (!name || !category || !language || !components) {
             return res.status(400).json({ error: 'Invalid input' });
         }
+
+        for (const component of components) {
+            if (component.type === 'HEADER' && (component.format === 'IMAGE' || component.format === 'VIDEO' || component.format === 'DOCUMENT')) {
+                const fileHandle = await metaService.uploadMediaFromUrl({ appId, accessToken: apiToken, fileUrl: component.example.header_handle[0] });
+                component.example.header_handle[0] = fileHandle.h;
+            }
+        }
+
         const result = await templateService.createTemplate({ wabaId, apiToken, name, category, language, components, parameter_format });
         res.status(201).json(result);
     } catch (error) {

@@ -1,0 +1,425 @@
+{
+	"info": {
+		"_postman_id": "72ff3572-324a-4341-a740-2eb376fcf607",
+		"name": "Ember",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39585306"
+	},
+	"item": [
+		{
+			"name": "API-WhatsApp",
+			"item": [
+				{
+					"name": "Template Creation Examples",
+					"item": [
+						{
+							"name": "Positional",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiI2ODU0ODNkMTJmZTc1NjY2YzY0MTE0MzMiLCJuYW1lIjoiUHJpbmNpcGFsIiwicm9sZSI6Im93bmVyIiwidHlwZSI6InNlcnZpY2UiLCJpYXQiOjE3NTIxMTA0NzF9.jQR2FbKXpbOfsmMGkeC-m2kjOj3pts80lW3KJ5FuhEA"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"sale_announcement\",\n    \"category\": \"MARKETING\",\n    \"language\": \"en_US\",\n    \"components\": [\n        {\n            \"type\": \"HEADER\",\n            \"format\": \"TEXT\",\n            \"text\": \"Our new sale starts {{1}}!\",\n            \"example\": {\n                \"header_text\": [\n                    \"December 1st\"\n                ]\n            }\n        },\n        {\n            \"type\": \"BODY\",\n            \"text\": \"Get up to {{1}}% off on all items. Valid until {{2}}.\",\n            \"example\": {\n                \"body_text\": [\n                    [\n                        \"50\",\n                        \"December 31st\"\n                    ]\n                ]\n            }\n        },\n        {\n            \"type\": \"FOOTER\",\n            \"text\": \"Don't miss out on these amazing deals!\"\n        }\n    ],\n    \"parameter_format\": \"positional\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/template",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"template"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Media",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiI2ODU0ODNkMTJmZTc1NjY2YzY0MTE0MzMiLCJuYW1lIjoiUHJpbmNpcGFsIiwicm9sZSI6Im93bmVyIiwidHlwZSI6InNlcnZpY2UiLCJpYXQiOjE3NTIxMTA0NzF9.jQR2FbKXpbOfsmMGkeC-m2kjOj3pts80lW3KJ5FuhEA"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"sale_announcement_media\",\n    \"category\": \"MARKETING\",\n    \"language\": \"en_US\",\n    \"components\": [\n        {\n            \"type\": \"HEADER\",\n            \"format\": \"DOCUMENT\", // IMAGE, VIDEO or DOCUMENT.\n            \"example\": {\n                \"header_handle\": [\n                    \"https://bucket.ember.app.br/files/document-sample.pdf\"\n                ]\n            }\n        },\n        {\n            \"type\": \"BODY\",\n            \"text\": \"Get up to 50% off on all items. Valid until tomorrow.\"\n        },\n        {\n            \"type\": \"FOOTER\",\n            \"text\": \"Don't miss out on these amazing deals!\"\n        }\n    ],\n    \"parameter_format\": \"positional\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/template",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"template"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Named",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiI2ODU0ODNkMTJmZTc1NjY2YzY0MTE0MzMiLCJuYW1lIjoiUHJpbmNpcGFsIiwicm9sZSI6Im93bmVyIiwidHlwZSI6InNlcnZpY2UiLCJpYXQiOjE3NTIxMTA0NzF9.jQR2FbKXpbOfsmMGkeC-m2kjOj3pts80lW3KJ5FuhEA"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"sale_announcement_named\",\n    \"category\": \"MARKETING\",\n    \"language\": \"en_US\",\n    \"components\": [\n        {\n            \"type\": \"HEADER\",\n            \"format\": \"TEXT\",\n            \"text\": \"Our new sale starts {{sales_start_date}}!\",\n            \"example\": {\n                \"header_text_named_params\": [\n                    {\n                        \"param_name\": \"sales_start_date\",\n                        \"example\": \"December 1st\"\n                    }\n                ]\n            }\n        },\n        {\n            \"type\": \"BODY\",\n            \"text\": \"Get up to {{discount}}% off on all items. Valid until {{expiration_date}}.\",\n            \"example\": {\n                \"body_text_named_params\": [\n                    {\n                        \"param_name\": \"discount\",\n                        \"example\": \"50\"\n                    },\n                    {\n                        \"param_name\": \"expiration_date\",\n                        \"example\": \"December 31st\"\n                    }\n                ]\n            }\n        },\n        {\n            \"type\": \"FOOTER\",\n            \"text\": \"Don't miss out on these amazing deals!\"\n        }\n    ],\n    \"parameter_format\": \"named\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/template",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"template"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CTA",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiI2ODU0ODNkMTJmZTc1NjY2YzY0MTE0MzMiLCJuYW1lIjoiUHJpbmNpcGFsIiwicm9sZSI6Im93bmVyIiwidHlwZSI6InNlcnZpY2UiLCJpYXQiOjE3NTIxMTA0NzF9.jQR2FbKXpbOfsmMGkeC-m2kjOj3pts80lW3KJ5FuhEA"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"sale_announcement_positional\",\n    \"category\": \"MARKETING\",\n    \"language\": \"en_US\",\n    \"components\": [\n        {\n            \"type\": \"HEADER\",\n            \"format\": \"TEXT\",\n            \"text\": \"Our new sale starts {{1}}!\",\n            \"example\": {\n                \"header_text\": [\n                    \"December 1st\"\n                ]\n            }\n        },\n        {\n            \"type\": \"BODY\",\n            \"text\": \"Get up to {{1}}% off on all items. Valid until {{2}}.\",\n            \"example\": {\n                \"body_text\": [\n                    [\n                        \"50\",\n                        \"December 31st\"\n                    ]\n                ]\n            }\n        },\n        {\n            \"type\": \"FOOTER\",\n            \"text\": \"Don't miss out on these amazing deals!\"\n        },\n        {\n            \"type\": \"BUTTONS\",\n            \"buttons\": [\n                {\n                    \"type\": \"PHONE_NUMBER\",\n                    \"text\": \"Call\",\n                    \"phone_number\": \"15550051310\"\n                },\n                {\n                    \"type\": \"URL\",\n                    \"text\": \"Shop Now\",\n                    \"url\": \"https://www.luckyshrub.com/shop/{{1}}\",\n                    \"example\": [\n                        \"123456\"\n                    ]\n                }\n            ]\n        }\n    ],\n    \"parameter_format\": \"positional\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/template",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"template"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Buttons",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiI2ODU0ODNkMTJmZTc1NjY2YzY0MTE0MzMiLCJuYW1lIjoiUHJpbmNpcGFsIiwicm9sZSI6Im93bmVyIiwidHlwZSI6InNlcnZpY2UiLCJpYXQiOjE3NTIxMTA0NzF9.jQR2FbKXpbOfsmMGkeC-m2kjOj3pts80lW3KJ5FuhEA"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"sale_announcement_buttons\",\n    \"category\": \"MARKETING\",\n    \"language\": \"en_US\",\n    \"components\": [\n        {\n            \"type\": \"HEADER\",\n            \"format\": \"TEXT\",\n            \"text\": \"Our new sale starts {{1}}!\",\n            \"example\": {\n                \"header_text\": [\n                    \"December 1st\"\n                ]\n            }\n        },\n        {\n            \"type\": \"BODY\",\n            \"text\": \"Get up to {{1}}% off on all items. Valid until {{2}}.\",\n            \"example\": {\n                \"body_text\": [\n                    [\n                        \"50\",\n                        \"December 31st\"\n                    ]\n                ]\n            }\n        },\n        {\n            \"type\": \"FOOTER\",\n            \"text\": \"Don't miss out on these amazing deals!\"\n        },\n        {\n            \"type\": \"BUTTONS\",\n            \"buttons\": [\n                {\n                    \"type\": \"QUICK_REPLY\",\n                    \"text\": \"Let's go!\"\n                },\n                {\n                    \"type\": \"QUICK_REPLY\",\n                    \"text\": \"Buy now\"\n                },\n                {\n                    \"type\": \"QUICK_REPLY\",\n                    \"text\": \"Unsubscribe\"\n                }\n            ]\n        }\n    ],\n    \"parameter_format\": \"positional\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/template",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"template"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Template Sending Examples",
+					"item": [
+						{
+							"name": "Positional",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiI2ODU0ODNkMTJmZTc1NjY2YzY0MTE0MzMiLCJuYW1lIjoiUHJpbmNpcGFsIiwicm9sZSI6Im93bmVyIiwidHlwZSI6InNlcnZpY2UiLCJpYXQiOjE3NTIxMTA0NzF9.jQR2FbKXpbOfsmMGkeC-m2kjOj3pts80lW3KJ5FuhEA"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"template_name\": \"sale_announcement_positional\",\n    \"language\": \"en_US\",\n    \"phone_messages\": [\n        {\n            \"phone_number\": \"5511999999999\",\n            \"variables\": [\n                {\n                    \"type\": \"header\",\n                    \"parameters\": [\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"December 1st\"\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"body\",\n                    \"parameters\": [\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"50\"\n                        },\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"December 31st\"\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/message/template",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"message",
+										"template"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Named",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiI2ODU0ODNkMTJmZTc1NjY2YzY0MTE0MzMiLCJuYW1lIjoiUHJpbmNpcGFsIiwicm9sZSI6Im93bmVyIiwidHlwZSI6InNlcnZpY2UiLCJpYXQiOjE3NTIxMTA0NzF9.jQR2FbKXpbOfsmMGkeC-m2kjOj3pts80lW3KJ5FuhEA"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"template_name\": \"sale_announcement_named\",\n    \"language\": \"en_US\",\n    \"phone_messages\": [\n        {\n            \"phone_number\": \"5511999999999\",\n            \"variables\": [\n                {\n                    \"type\": \"header\",\n                    \"parameters\": [\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"December 1st\",\n                            \"parameter_name\": \"sales_start_date\"\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"body\",\n                    \"parameters\": [\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"50\",\n                            \"parameter_name\": \"discount\"\n                        },\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"December 31st\",\n                            \"parameter_name\": \"expiration_date\"\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/message/template",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"message",
+										"template"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CTA",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiI2ODU0ODNkMTJmZTc1NjY2YzY0MTE0MzMiLCJuYW1lIjoiUHJpbmNpcGFsIiwicm9sZSI6Im93bmVyIiwidHlwZSI6InNlcnZpY2UiLCJpYXQiOjE3NTIxMTA0NzF9.jQR2FbKXpbOfsmMGkeC-m2kjOj3pts80lW3KJ5FuhEA"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"template_name\": \"sale_announcement_positional\",\n    \"language\": \"en_US\",\n    \"phone_messages\": [\n        {\n            \"phone_number\": \"5511999999999\",\n            \"variables\": [\n                {\n                    \"type\": \"header\",\n                    \"parameters\": [\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"December 1st\"\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"body\",\n                    \"parameters\": [\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"50\"\n                        },\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"December 31st\"\n                        }\n                    ]\n                },\n                {\n                    \"type\": \"button\",\n                    \"index\": \"0\", // Or \"1\" if there are two CTA buttons\n                    \"sub_type\": \"url\",\n                    \"parameters\": [\n                        {\n                            \"type\": \"text\",\n                            \"text\": \"50\"\n                        },\n                        {\n                            \"type\": \"text\", // This is the dynamic part of the URL, if any\n                            \"text\": \"1234565\"\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/template",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"template"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Media",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiI2ODU0ODNkMTJmZTc1NjY2YzY0MTE0MzMiLCJuYW1lIjoiUHJpbmNpcGFsIiwicm9sZSI6Im93bmVyIiwidHlwZSI6InNlcnZpY2UiLCJpYXQiOjE3NTIxMTA0NzF9.jQR2FbKXpbOfsmMGkeC-m2kjOj3pts80lW3KJ5FuhEA"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"template_name\": \"sale_announcement_media\",\n    \"language\": \"en_US\",\n    \"phone_messages\": [\n        {\n            \"phone_number\": \"5511999999999\",\n            \"variables\": [\n                {\n                    \"type\": \"header\",\n                    \"parameters\": [\n                        {\n                            \"type\": \"image\", // image, document or video\n                            \"image\": {\n                                \"link\": \"https://bucket.ember.app.br/files/document_sample.pdf\"\n                            }\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3001/template",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3001",
+									"path": [
+										"template"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0SWQiOiI2ODU0ODNkMTJmZTc1NjY2YzY0MTE0MzMiLCJuYW1lIjoiUHJpbmNpcGFsIiwicm9sZSI6Im93bmVyIiwidHlwZSI6InNlcnZpY2UiLCJpYXQiOjE3NTIxMTA0NzF9.jQR2FbKXpbOfsmMGkeC-m2kjOj3pts80lW3KJ5FuhEA",
+			"type": "default"
+		}
+	]
+}

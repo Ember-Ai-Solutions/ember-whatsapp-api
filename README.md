@@ -68,10 +68,11 @@ GET /template?name=order_confirmation&language=pt_BR
 
 - `app.js` - Express server entry point
 - `config/` - Logger and environment configuration
-- `services/` - Integration services (MongoDB, templates, etc.)
+- `services/` - Integration services (MongoDB, templates, Meta upload, etc.)
 - `middleware/` - Custom middlewares (authentication, etc.)
 - `routes/` - API route definitions
 - `logs/` - Application logs
+- `examples/` - Usage examples for services
 
 ## Environment Variables
 
@@ -80,6 +81,31 @@ GET /template?name=order_confirmation&language=pt_BR
 - `MONGODB_URI` - MongoDB connection string
 - `MONGO_CLIENTS_DB_NAME` - MongoDB clients database name
 - `MONGO_PROJECTS_COLLECTION_NAME` - MongoDB projects collection name
+
+## Meta Upload Service
+
+The project includes a `metaService` for uploading media files to Meta's social graph using the Resumable Upload API. This service can extract file information directly from URLs.
+
+### Usage Example
+
+```javascript
+const metaService = require('./services/metaService');
+
+// Upload media from URL
+const result = await metaService.uploadMediaFromUrl({
+    appId: '123456789',
+    accessToken: 'your-access-token',
+    fileUrl: 'https://bucket.ember.app.br/files/document_sample.pdf'
+});
+
+console.log('File handle:', result.h);
+```
+
+### Supported File Types
+- PDF (`application/pdf`)
+- JPEG (`image/jpeg`, `image/jpg`)
+- PNG (`image/png`)
+- MP4 (`video/mp4`)
 
 ## Best Practices
 - All logs are in English and handled by Winston (console and file).
