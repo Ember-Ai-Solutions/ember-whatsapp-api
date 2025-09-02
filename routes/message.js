@@ -6,6 +6,473 @@ const router = express.Router();
 
 /**
  * @swagger
+ * /message:
+ *   post:
+ *     summary: Send WhatsApp messages
+ *     description: |
+ *       Send a WhatsApp message to a single recipient. Supports multiple message types including text, image, document, video, audio, location, contact, and interactive messages.
+ *
+ *       - Requires JWT authentication with at least 'editor' role for the project.
+ *       - The **`projectId`** parameter is required only for user JWTs (not for service JWTs).
+ *       - This endpoint sends individual messages without creating campaigns.
+ *
+ *       **Parameter details:**
+ *       - `projectId`: Unique identifier of the project. **Required if using a user JWT. Not required for service JWT.**
+ *       - `message_type`: Type of message to send (text, image, document, video, audio, location, contact, interactive). (required)
+ *       - `phone_number`: Recipient phone number in international format. (required)
+ *       - `content`: Message content or data based on message type. (required)
+ *
+ *       **Message Types and Content Examples:**
+ *
+ *       **Text Message:**
+ *       ```json
+ *       {
+ *         "message_type": "text",
+ *         "phone_number": "5511999999999",
+ *         "content": "Hello! How are you today?"
+ *       }
+ *       ```
+ *
+ *       **Image Message:**
+ *       ```json
+ *       {
+ *         "message_type": "image",
+ *         "phone_number": "5511999999999",
+ *         "content": {
+ *           "link": "https://example.com/image.jpg",
+ *           "caption": "Check out this amazing image!"
+ *         }
+ *       }
+ *       ```
+ *
+ *       **Document Message:**
+ *       ```json
+ *       {
+ *         "message_type": "document",
+ *         "phone_number": "5511999999999",
+ *         "content": {
+ *           "link": "https://example.com/document.pdf",
+ *           "caption": "Important document for you",
+ *           "filename": "document.pdf"
+ *         }
+ *       }
+ *       ```
+ *
+ *       **Video Message:**
+ *       ```json
+ *       {
+ *         "message_type": "video",
+ *         "phone_number": "5511999999999",
+ *         "content": {
+ *           "link": "https://example.com/video.mp4",
+ *           "caption": "Watch this amazing video!"
+ *         }
+ *       }
+ *       ```
+ *
+ *       **Audio Message:**
+ *       ```json
+ *       {
+ *         "message_type": "audio",
+ *         "phone_number": "5511999999999",
+ *         "content": {
+ *           "link": "https://example.com/audio.mp3"
+ *         }
+ *       }
+ *       ```
+ *
+ *       **Location Message:**
+ *       ```json
+ *       {
+ *         "message_type": "location",
+ *         "phone_number": "5511999999999",
+ *         "content": {
+ *           "latitude": -23.5505,
+ *           "longitude": -46.6333,
+ *           "name": "São Paulo, Brazil",
+ *           "address": "São Paulo, SP, Brazil"
+ *         }
+ *       }
+ *       ```
+ *
+ *       **Contact Message:**
+ *       ```json
+ *       {
+ *         "message_type": "contact",
+ *         "phone_number": "5511999999999",
+ *         "content": {
+ *           "contacts": [
+ *             {
+ *               "name": {
+ *                 "formatted_name": "John Doe",
+ *                 "first_name": "John",
+ *                 "last_name": "Doe"
+ *               },
+ *               "phones": [
+ *                 {
+ *                   "phone": "5511999999999",
+ *                   "type": "CELL"
+ *                 }
+ *               ],
+ *               "emails": [
+ *                 {
+ *                   "email": "john.doe@example.com",
+ *                   "type": "WORK"
+ *                 }
+ *               ]
+ *             }
+ *           ]
+ *         }
+ *       }
+ *       ```
+ *
+ *       **Interactive Message (List):**
+ *       ```json
+ *       {
+ *         "message_type": "interactive",
+ *         "phone_number": "5511999999999",
+ *         "content": {
+ *           "type": "list",
+ *           "header": {
+ *             "type": "text",
+ *             "text": "Choose an option:"
+ *           },
+ *           "body": {
+ *             "text": "Select one of the following options:"
+ *           },
+ *           "action": {
+ *             "button": "Select",
+ *             "sections": [
+ *               {
+ *                 "title": "Section 1",
+ *                 "rows": [
+ *                   {
+ *                     "id": "1",
+ *                     "title": "Option 1",
+ *                     "description": "Description for option 1"
+ *                   },
+ *                   {
+ *                     "id": "2",
+ *                     "title": "Option 2",
+ *                     "description": "Description for option 2"
+ *                   }
+ *                 ]
+ *               }
+ *             ]
+ *           }
+ *         }
+ *       }
+ *       ```
+ *
+ *       **Interactive Message (Button):**
+ *       ```json
+ *       {
+ *         "message_type": "interactive",
+ *         "phone_number": "5511999999999",
+ *         "content": {
+ *           "type": "button",
+ *           "header": {
+ *             "type": "text",
+ *             "text": "Welcome!"
+ *           },
+ *           "body": {
+ *             "text": "Please select an option:"
+ *           },
+ *           "action": {
+ *             "buttons": [
+ *               {
+ *                 "type": "reply",
+ *                 "reply": {
+ *                   "id": "yes",
+ *                   "title": "Yes"
+ *                 }
+ *               },
+ *               {
+ *                 "type": "reply",
+ *                 "reply": {
+ *                   "id": "no",
+ *                   "title": "No"
+ *                 }
+ *               }
+ *             ]
+ *           }
+ *         }
+ *       }
+ *       ```
+ *
+ *     tags:
+ *       - Message
+ *     parameters:
+ *       - in: query
+ *         name: projectId
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Unique identifier of the project. Required if using a user JWT. Not required for service JWT.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - message_type
+ *               - phone_number
+ *               - content
+ *             properties:
+ *               message_type:
+ *                 type: string
+ *                 enum: [text, image, document, video, audio, location, contact, interactive]
+ *                 description: Type of message to send
+ *                 example: text
+ *               phone_number:
+ *                 type: string
+ *                 description: Recipient phone number in international format
+ *                 example: '5511999999999'
+ *               content:
+ *                 oneOf:
+ *                   - type: string
+ *                     description: Text content for text messages
+ *                     example: 'Hello! How are you today?'
+ *                   - type: object
+ *                     description: Content object for media and interactive messages
+ *                     properties:
+ *                       link:
+ *                         type: string
+ *                         description: URL for media files
+ *                         example: 'https://example.com/image.jpg'
+ *                       caption:
+ *                         type: string
+ *                         description: Caption for media files
+ *                         example: 'Check out this amazing image!'
+ *                       filename:
+ *                         type: string
+ *                         description: Filename for document messages
+ *                         example: 'document.pdf'
+ *                       latitude:
+ *                         type: number
+ *                         description: Latitude for location messages
+ *                         example: -23.5505
+ *                       longitude:
+ *                         type: number
+ *                         description: Longitude for location messages
+ *                         example: -46.6333
+ *                       name:
+ *                         type: string
+ *                         description: Location name
+ *                         example: 'São Paulo, Brazil'
+ *                       address:
+ *                         type: string
+ *                         description: Location address
+ *                         example: 'São Paulo, SP, Brazil'
+ *                       contacts:
+ *                         type: array
+ *                         description: Contact information for contact messages
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             name:
+ *                               type: object
+ *                               properties:
+ *                                 formatted_name:
+ *                                   type: string
+ *                                   example: 'John Doe'
+ *                                 first_name:
+ *                                   type: string
+ *                                   example: 'John'
+ *                                 last_name:
+ *                                   type: string
+ *                                   example: 'Doe'
+ *                             phones:
+ *                               type: array
+ *                               items:
+ *                                 type: object
+ *                                 properties:
+ *                                   phone:
+ *                                     type: string
+ *                                     example: '5511999999999'
+ *                                   type:
+ *                                     type: string
+ *                                     example: 'CELL'
+ *                             emails:
+ *                               type: array
+ *                               items:
+ *                                 type: object
+ *                                 properties:
+ *                                   email:
+ *                                     type: string
+ *                                     example: 'john.doe@example.com'
+ *                                   type:
+ *                                     type: string
+ *                                     example: 'WORK'
+ *                       type:
+ *                         type: string
+ *                         enum: [list, button]
+ *                         description: Interactive message type
+ *                         example: list
+ *                       header:
+ *                         type: object
+ *                         description: Header for interactive messages
+ *                         properties:
+ *                           type:
+ *                             type: string
+ *                             example: text
+ *                           text:
+ *                             type: string
+ *                             example: 'Choose an option:'
+ *                       body:
+ *                         type: object
+ *                         description: Body for interactive messages
+ *                         properties:
+ *                           text:
+ *                             type: string
+ *                             example: 'Select one of the following options:'
+ *                       action:
+ *                         type: object
+ *                         description: Action for interactive messages
+ *                         properties:
+ *                           button:
+ *                             type: string
+ *                             description: Button text for list messages
+ *                             example: 'Select'
+ *                           sections:
+ *                             type: array
+ *                             description: Sections for list messages
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 title:
+ *                                   type: string
+ *                                   example: 'Section 1'
+ *                                 rows:
+ *                                   type: array
+ *                                   items:
+ *                                     type: object
+ *                                     properties:
+ *                                       id:
+ *                                         type: string
+ *                                         example: '1'
+ *                                       title:
+ *                                         type: string
+ *                                         example: 'Option 1'
+ *                                       description:
+ *                                         type: string
+ *                                         example: 'Description for option 1'
+ *                           buttons:
+ *                             type: array
+ *                             description: Buttons for button messages
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 type:
+ *                                   type: string
+ *                                   example: reply
+ *                                 reply:
+ *                                   type: object
+ *                                   properties:
+ *                                     id:
+ *                                       type: string
+ *                                       example: 'yes'
+ *                                     title:
+ *                                       type: string
+ *                                       example: 'Yes'
+ *           example:
+ *             message_type: "text"
+ *             phone_number: "5511999999999"
+ *             content: "Hello! How are you today?"
+ *     responses:
+ *       200:
+ *         description: Message sent successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 messageId:
+ *                   type: string
+ *                   description: WhatsApp message ID
+ *                   example: 'wamid.HBgMNTUxMTk5OTk5OTk5FQIAERgSODg3QzA4QzA4QzA4QzA4AA=='
+ *                 status:
+ *                   type: string
+ *                   description: Message status
+ *                   example: 'sent'
+ *                 success:
+ *                   type: boolean
+ *                   description: Whether the message was sent successfully
+ *                   example: true
+ *                 phoneNumber:
+ *                   type: string
+ *                   description: Recipient phone number
+ *                   example: '5511999999999'
+ *                 messageType:
+ *                   type: string
+ *                   description: Type of message sent
+ *                   example: 'text'
+ *       400:
+ *         description: Invalid input. Required fields are missing or malformed.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid input: message_type, phone_number, and content are required"
+ *       401:
+ *         description: Unauthorized. JWT is missing, invalid, or does not have the required role.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Unauthorized
+ *       500:
+ *         description: Internal server error. An unexpected error occurred.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: Internal server error
+ *                 details:
+ *                   type: string
+ *                   example: Error details or stack trace
+ *     security:
+ *       - bearerAuth: []
+ */
+router.post('/', jwtTokenValidation('editor'), async (req, res) => {
+    try {
+        const { message_type, phone_number, content } = req.body;
+        const { wabaId, apiToken, phoneId, fromPhoneNumber, projectId } = req.body;
+
+        if (!message_type || !phone_number || !content) {
+            return res.status(400).json({ error: 'Invalid input: message_type, phone_number, and content are required' });
+        }
+
+        const result = await messageService.sendMessage({
+            wabaId,
+            apiToken,
+            message_type,
+            phone_number,
+            content,
+            phoneId,
+            fromPhoneNumber,
+            projectId
+        });
+
+        res.status(200).json(result);
+    } catch (error) {
+        logger.error('MessageRoute: Error in POST /message', { error: error.message });
+        res.status(500).json({ error: 'Internal server error', details: error.response?.data || error.message });
+    }
+});
+
+/**
+ * @swagger
  * /message/template:
  *   post:
  *     summary: Send WhatsApp template messages

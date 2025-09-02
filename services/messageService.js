@@ -5,6 +5,113 @@ const mongodbService = require('../services/mongodbService');
 
 const META_API_VERSION = environment.metaApiVersion;
 
+async function sendMessage({ wabaId, apiToken, message_type, phone_number, content, phoneId, fromPhoneNumber, projectId }) {
+    try {
+        const finalWabaId = wabaId;
+        const finalApiToken = apiToken;
+        const finalPhoneId = phoneId;
+
+        let messageData = {
+            messaging_product: 'whatsapp',
+            to: phone_number,
+            type: message_type
+        };
+
+        switch (message_type) {
+            case 'text':
+                messageData.text = { body: content };
+                break;
+
+            case 'image':
+                messageData.image = {
+                    link: content.link,
+                    caption: content.caption || ''
+                };
+                break;
+
+            case 'document':
+                messageData.document = {
+                    link: content.link,
+                    caption: content.caption || '',
+                    filename: content.filename || 'document'
+                };
+                break;
+
+            case 'video':
+                messageData.video = {
+                    link: content.link,
+                    caption: content.caption || ''
+                };
+                break;
+
+            case 'audio':
+                messageData.audio = {
+                    link: content.link
+                };
+                break;
+
+            case 'location':
+                messageData.location = {
+                    latitude: content.latitude,
+                    longitude: content.longitude,
+                    name: content.name || '',
+                    address: content.address || ''
+                };
+                break;
+
+            case 'contact':
+                messageData.contacts = content.contacts;
+                break;
+
+            case 'interactive':
+                messageData.interactive = content;
+                break;
+
+            default:
+                throw new Error(`Unsupported message type: ${message_type}`);
+        }
+
+        const response = await axios.post(
+            `https://graph.facebook.com/${META_API_VERSION}/${finalPhoneId}/messages`,
+            messageData,
+            {
+                headers: {
+                    Authorization: `Bearer ${finalApiToken}`,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+
+        logger.info('MessageService: Message sent successfully', {
+            wabaId: finalWabaId,
+            fromPhoneNumber,
+            projectId,
+            messageType: message_type,
+            phoneNumber: phone_number,
+            messageId: response.data.messages?.[0]?.id
+        });
+
+        return {
+            messageId: response.data.messages?.[0]?.id,
+            status: 'sent',
+            success: true,
+            phoneNumber: phone_number,
+            messageType: message_type
+        };
+
+    } catch (error) {
+        logger.error('MessageService: Error sending message', {
+            wabaId: finalWabaId,
+            fromPhoneNumber,
+            projectId,
+            messageType: message_type,
+            phoneNumber: phone_number,
+            error: error.response?.data || error.message
+        });
+        throw error;
+    }
+}
+
 async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_numbers, variablesList, phoneId, languageCode, fromPhoneNumber, projectId, campaignName }) {
     try {
         const finalWabaId = wabaId;
@@ -190,6 +297,7 @@ async function getCampaigns({ projectId, campaignId, campaignName }) {
 }
 
 module.exports = {
+    sendMessage,
     sendTemplateMessages,
     getCampaigns
 }
