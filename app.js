@@ -14,7 +14,8 @@ const app = express();
 app.use(bodyParser.json({ verify: (req, res, buf) => { req.rawBody = buf; } }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-let frontendUrl = process.env.FRONTEND_URL;
+let frontendUrl = process.env.ENV == "DEV" ? "http://localhost:3000" : process.env.FRONTEND_URL;
+let protocol = process.env.ENV == "DEV" ? "http" : "https";
 
 if (!frontendUrl.startsWith('http')) {
     frontendUrl = `https://${frontendUrl}`;
@@ -22,7 +23,7 @@ if (!frontendUrl.startsWith('http')) {
 
 const domainMatch = frontendUrl.match(/(?:https?:\/\/)?(?:www\.)?([^/]+)/);
 const baseDomain = domainMatch ? domainMatch[1] : 'ember.app.br';
-const allowedPattern = new RegExp(`^https:\\/\\/([a-z0-9-]+\\.)?${baseDomain.replace(/\./g, '\\.')}$`);
+const allowedPattern = new RegExp(`^${protocol}:\\/\\/([a-z0-9-]+\\.)?${baseDomain.replace(/\./g, '\\.')}$`);
 
 app.use(cors({
     origin: (origin, callback) => {
@@ -89,7 +90,7 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Internal server error', details: err.message });
 });
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3003;
 app.listen(PORT, () => {
     logger.info(`App: Server running on port ${PORT}`);
     logger.info(`App: Swagger docs available at /docs`);
