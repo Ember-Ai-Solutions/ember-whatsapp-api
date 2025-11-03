@@ -15,6 +15,11 @@ function jwtTokenValidation(role) {
             const roleLevels = ['viewer', 'editor', 'admin', 'owner'];
             let tokenRoleLevel = -1;
 
+            if (!authHeader) {
+                logger.warn('Authentication failed: No token provided');
+                return res.status(401).json({ message: 'Token não fornecido.' });
+            }
+
             const token = authHeader.replace('Bearer ', '');
             const response = await axios.post(JWT_VALIDATION_URL, { token });
 
