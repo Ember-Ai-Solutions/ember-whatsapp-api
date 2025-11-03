@@ -12,6 +12,29 @@ const app = express();
 
 app.use(bodyParser.json({ verify: (req, res, buf) => { req.rawBody = buf; } }));
 app.use(bodyParser.urlencoded({ extended: true }));
+
+let frontendUrl = process.env.FRONTEND_URL;
+
+if (!frontendUrl.startsWith('http')) {
+    frontendUrl = `https://${frontendUrl}`;
+}
+
+const domainMatch = frontendUrl.match(/(?:https?:\/\/)?(?:www\.)?([^/]+)/);
+const baseDomain = domainMatch ? domainMatch[1] : 'ember.app.br';
+const allowedPattern = new RegExp(`^https:\\/\\/([a-z0-9-]+\\.)?${baseDomain.replace(/\./g, '\\.')}$`);
+
+app.use(cors({
+    origin: (origin, callback) => {
+        if (!origin || allowedPattern.test(origin)) {
+            callback(null, true);
+        } else {
+            console.log(`CORS blocked for: ${origin}`);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+}));
+
 app.use(cookieParser());
 
 const swaggerDefinition = {
