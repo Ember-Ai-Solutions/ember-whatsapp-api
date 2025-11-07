@@ -13,7 +13,7 @@ const router = express.Router();
  *       Retrieve dynamic analytics statistics based on requested metrics and filters.
  *
  *       - Requires JWT authentication with at least 'viewer' role for the project.
- *       - The **`projectId`** parameter is set automatically from the JWT token.
+ *       - The **`projectId`** parameter is required in query string for user JWTs (not required for service JWTs).
  *       - Processes all metrics in parallel for better performance.
  *       - Unknown metric types are silently ignored.
  *
@@ -36,6 +36,13 @@ const router = express.Router();
  *
  *     tags:
  *       - Analytics
+ *     parameters:
+ *       - in: query
+ *         name: projectId
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Unique identifier of the project. Required if using a user JWT. Not required for service JWT.
  *     requestBody:
  *       required: true
  *       content:
