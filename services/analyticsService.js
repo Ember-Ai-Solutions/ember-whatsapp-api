@@ -97,6 +97,9 @@ async function getCampaignsTotal(projectId, filters = {}) {
 
 /**
  * Get total replies with optional text filter
+ * Counts unique (campaign + phoneNumber) combinations that replied
+ * Same number in different campaigns = multiple counts
+ * Same number multiple times in same campaign = single count
  */
 async function getReplies(projectId, filters = {}, textFilter = null) {
     try {
@@ -108,15 +111,21 @@ async function getReplies(projectId, filters = {}, textFilter = null) {
         
         const campaigns = await campaignsCollection.find(query).toArray();
         
-        const uniqueRepliers = new Set();
+        // Use Set with key format: "campaignId:phoneNumber" to count unique (campaign + number) combinations
+        const uniqueCampaignReplies = new Set();
 
         campaigns.forEach(campaign => {
             if (campaign.results && Array.isArray(campaign.results)) {
+                // Track unique phoneNumbers per campaign to avoid counting same number multiple times in same campaign
+                const campaignRepliers = new Set();
+                
                 campaign.results.forEach(result => {
                     // Skip if phoneNumber is null, undefined, or empty string
                     if (!result.phoneNumber || result.phoneNumber === null || result.phoneNumber === '') {
                         return;
                     }
+                    
+                    const phoneNumber = String(result.phoneNumber).trim();
                     
                     // Check if message was answered (status === "answered" OR has answers array)
                     const hasAnswers = result.answers && Array.isArray(result.answers) && result.answers.length > 0;
@@ -134,20 +143,26 @@ async function getReplies(projectId, filters = {}, textFilter = null) {
                                     return answerText === filterText;
                                 });
                                 
-                                if (hasMatchingAnswer) {
-                                    uniqueRepliers.add(String(result.phoneNumber).trim());
+                                if (hasMatchingAnswer && !campaignRepliers.has(phoneNumber)) {
+                                    campaignRepliers.add(phoneNumber);
+                                    // Key format: campaignId:phoneNumber
+                                    uniqueCampaignReplies.add(`${campaign._id}:${phoneNumber}`);
                                 }
                             }
                         } else {
-                            // Count all replies (client who answered)
-                            uniqueRepliers.add(String(result.phoneNumber).trim());
+                            // Count all replies - only once per number per campaign
+                            if (!campaignRepliers.has(phoneNumber)) {
+                                campaignRepliers.add(phoneNumber);
+                                // Key format: campaignId:phoneNumber
+                                uniqueCampaignReplies.add(`${campaign._id}:${phoneNumber}`);
+                            }
                         }
                     }
                 });
             }
         });
 
-        const totalReplies = uniqueRepliers.size;
+        const totalReplies = uniqueCampaignReplies.size;
 
         logger.info('AnalyticsService: Replies calculated', { 
             projectId, 
@@ -164,6 +179,7 @@ async function getReplies(projectId, filters = {}, textFilter = null) {
 
 /**
  * Get total views (messages with readDateTime)
+ * Counts each result that has readDateTime (not unique per client)
  */
 async function getViews(projectId, filters = {}) {
     try {
@@ -175,25 +191,19 @@ async function getViews(projectId, filters = {}) {
         
         const campaigns = await campaignsCollection.find(query).toArray();
         
-        const uniqueViewers = new Set();
+        let totalViews = 0;
 
         campaigns.forEach(campaign => {
             if (campaign.results && Array.isArray(campaign.results)) {
                 campaign.results.forEach(result => {
-                    // Skip if phoneNumber is null, undefined, or empty string
-                    if (!result.phoneNumber || result.phoneNumber === null || result.phoneNumber === '') {
-                        return;
-                    }
-                    
                     // Check if message was read (has readDateTime)
+                    // Count each result with readDateTime, regardless of phoneNumber
                     if (result.readDateTime) {
-                        uniqueViewers.add(String(result.phoneNumber).trim());
+                        totalViews++;
                     }
                 });
             }
         });
-
-        const totalViews = uniqueViewers.size;
 
         logger.info('AnalyticsService: Views calculated', { projectId, totalViews, filters });
         return totalViews;
