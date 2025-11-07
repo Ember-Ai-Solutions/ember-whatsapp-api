@@ -113,28 +113,34 @@ async function getReplies(projectId, filters = {}, textFilter = null) {
         campaigns.forEach(campaign => {
             if (campaign.results && Array.isArray(campaign.results)) {
                 campaign.results.forEach(result => {
+                    // Skip if phoneNumber is null, undefined, or empty string
+                    if (!result.phoneNumber || result.phoneNumber === null || result.phoneNumber === '') {
+                        return;
+                    }
+                    
                     // Check if message was answered (status === "answered" OR has answers array)
                     const hasAnswers = result.answers && Array.isArray(result.answers) && result.answers.length > 0;
-                    const isAnswered = result.status === 'answered' || hasAnswers;
+                    const status = (result.status || '').toLowerCase().trim();
+                    const isAnswered = status === 'answered' || hasAnswers;
                     
                     if (isAnswered) {
                         // If text filter is provided, check if any answer matches
                         if (textFilter) {
                             if (hasAnswers) {
-                                const filterText = textFilter.toLowerCase();
+                                const filterText = textFilter.toLowerCase().trim();
                                 const hasMatchingAnswer = result.answers.some(answer => {
-                                    const answerText = (answer.messageText || '').toLowerCase();
+                                    const answerText = (answer.messageText || '').toLowerCase().trim();
                                     // Case-insensitive exact match
                                     return answerText === filterText;
                                 });
                                 
                                 if (hasMatchingAnswer) {
-                                    uniqueRepliers.add(result.phoneNumber);
+                                    uniqueRepliers.add(String(result.phoneNumber).trim());
                                 }
                             }
                         } else {
                             // Count all replies (client who answered)
-                            uniqueRepliers.add(result.phoneNumber);
+                            uniqueRepliers.add(String(result.phoneNumber).trim());
                         }
                     }
                 });
@@ -174,9 +180,14 @@ async function getViews(projectId, filters = {}) {
         campaigns.forEach(campaign => {
             if (campaign.results && Array.isArray(campaign.results)) {
                 campaign.results.forEach(result => {
+                    // Skip if phoneNumber is null, undefined, or empty string
+                    if (!result.phoneNumber || result.phoneNumber === null || result.phoneNumber === '') {
+                        return;
+                    }
+                    
                     // Check if message was read (has readDateTime)
                     if (result.readDateTime) {
-                        uniqueViewers.add(result.phoneNumber);
+                        uniqueViewers.add(String(result.phoneNumber).trim());
                     }
                 });
             }

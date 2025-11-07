@@ -1,0 +1,1998 @@
+[
+    {
+        "_id": "6876c3302a4c211568983087",
+        "campaignName": "Campaign 2025-07-15 21:08:00.291",
+        "templateName": "hello_world",
+        "language": "en_US",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-07-15T21:08:00.291Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997671811",
+                "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAERgSMDQ0RTE4NzVFNjY4Mjc1RkVDAA==",
+                "status": "sent",
+                "success": true
+            }
+        ]
+    },
+    {
+        "_id": "688d5632983193bc639eab33",
+        "campaignName": "Campaign 2025-08-02 00:05:06.834",
+        "templateName": "mkt_limatech_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-02T00:05:06.835Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSNjg3REUxNkUxMjIwQTQxNjM3AA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-08-02T00:05:10.000Z",
+                "deliveredDateTime": "2025-08-02T00:05:10.000Z",
+                "readDateTime": "2025-08-02T00:06:21.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "688d6b37983193bc639eab34",
+        "campaignName": "Campanha 1",
+        "templateName": "mkt_limatech_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-02T01:34:47.842Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSMEREMjY0QUQ4NTkwODlCRjM5AA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-08-02T01:34:49.000Z",
+                "deliveredDateTime": "2025-08-02T01:34:50.000Z",
+                "readDateTime": "2025-08-02T10:42:53.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "688d6e85983193bc639eab35",
+        "campaignName": "Campanha",
+        "templateName": "mkt_limatech_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-02T01:48:53.591Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSMEQ0QkE5ODFGNDk2NzBGRDBGAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-08-02T01:48:54.000Z",
+                "deliveredDateTime": "2025-08-02T01:48:55.000Z",
+                "readDateTime": "2025-08-02T10:42:53.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "688d6ec3983193bc639eab36",
+        "campaignName": "Campanha",
+        "templateName": "mkt_limatech_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-02T01:49:55.856Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSQTNFRTVCRjJFNThDMkRCMUFEAA==",
+                "status": "read",
+                "success": true,
+                "deliveredDateTime": "2025-08-02T01:49:57.000Z",
+                "sentDateTime": "2025-08-02T01:49:56.000Z",
+                "readDateTime": "2025-08-02T10:42:53.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "68907f16983193bc639eab37",
+        "campaignName": "Campanha",
+        "templateName": "mkt_limatech_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T09:36:22.512Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSQTYxMkQxNjk3RDk5N0UxMzFDAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-08-04T09:36:24.000Z",
+                "deliveredDateTime": "2025-08-04T09:36:25.000Z",
+                "readDateTime": "2025-08-04T09:44:01.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "68908001983193bc639eab38",
+        "campaignName": "Campanha2",
+        "templateName": "mkt_limatech_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T09:40:17.703Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSMTFCQjIwRTBERTVGRTM4RTJBAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-08-04T09:40:18.000Z",
+                "deliveredDateTime": "2025-08-04T09:40:19.000Z",
+                "readDateTime": "2025-08-04T09:44:01.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "68908011983193bc639eab39",
+        "campaignName": "Campanha2",
+        "templateName": "mkt_limatech_3",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T09:40:33.786Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSRTEwNEU4OUE0Q0EzOTdFNUI3AA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-08-04T09:40:34.000Z",
+                "deliveredDateTime": "2025-08-04T09:40:35.000Z",
+                "readDateTime": "2025-08-04T09:44:01.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "68908040983193bc639eab3a",
+        "campaignName": "Campanha1",
+        "templateName": "mkt_limatech_3",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T09:41:20.741Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSQzhCMjgzNkU1NjIyQzdBRTI0AA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-08-04T09:41:21.000Z",
+                "deliveredDateTime": "2025-08-04T09:41:22.000Z",
+                "readDateTime": "2025-08-04T09:44:01.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "68908097983193bc639eab3b",
+        "campaignName": "Campanha4",
+        "templateName": "mkt_limatech_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T09:42:47.101Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSNEY1Mjg0QTk1Njc3QzE1Qjg3AA==",
+                "status": "failed",
+                "success": true,
+                "failedDateTime": "2025-08-04T09:42:48.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "6890bbb6983193bc639eab3c",
+        "campaignName": "Campaign 2025-08-04 13:55:02.940",
+        "templateName": "mkt_limatech_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T13:55:02.940Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSNTZEQUIxRDVCQjFFMjgzQzE1AA==",
+                "status": "failed",
+                "success": true,
+                "failedDateTime": "2025-08-04T13:55:05.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "6890bbc6983193bc639eab3d",
+        "campaignName": "Campanha4",
+        "templateName": "mkt_limatech_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T13:55:18.408Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSN0FCMTRDQUM3RTA2MjRCOUZDAA==",
+                "status": "failed",
+                "success": true,
+                "failedDateTime": "2025-08-04T13:55:19.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "6890e184cac9c0f3222107e4",
+        "campaignName": "Campanha6",
+        "templateName": "mkt_limatech_6",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T16:36:20.210Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSNzMzMkQ1QThDMDUyN0ZENTc3AA==",
+                "status": "failed",
+                "success": true,
+                "failedDateTime": "2025-08-04T16:36:22.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "6890e4e4cac9c0f3222107e5",
+        "campaignName": "Campanha7",
+        "templateName": "mkt_limatech_7",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T16:50:44.875Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSN0YzQTNDQ0JCOTg0RjAxMUMxAA==",
+                "status": "failed",
+                "success": true,
+                "failedDateTime": "2025-08-04T16:50:46.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "6890e9a40c31cccd9e6483d9",
+        "campaignName": "teste_joao",
+        "templateName": "mkt_limatech_7",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T17:11:00.977Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSQUEyMkZCOTYwMEU5Nzk3MjkzAA==",
+                "status": "failed",
+                "success": true,
+                "failedDateTime": "2025-08-04T17:11:03.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "6890ea0a0c31cccd9e6483da",
+        "campaignName": "teste_joao2",
+        "templateName": "mkt_limatech_7",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T17:12:42.807Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSNzcxQkM3QUExRUI0Q0Y1NERCAA==",
+                "status": "failed",
+                "success": true,
+                "failedDateTime": "2025-08-04T17:12:44.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "6890fc7b0c31cccd9e6483db",
+        "campaignName": "Campanha8",
+        "templateName": "utility_2",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T18:31:23.474Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSM0RBMzJGNEQ4QzEyN0Q3RUREAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-08-04T18:31:25.000Z",
+                "deliveredDateTime": "2025-08-04T18:31:25.000Z",
+                "readDateTime": "2025-08-04T18:31:51.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "689106e80c31cccd9e6483dc",
+        "campaignName": "Campanha8",
+        "templateName": "utility_2",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-04T19:15:52.274Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSQzBCMEI1MTJFQjZBQ0E5QzY5AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-08-04T19:15:54.000Z",
+                "deliveredDateTime": "2025-08-04T19:15:54.000Z",
+                "readDateTime": "2025-08-04T19:17:07.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0FBNDU3MkIzMDU4M0M4ODI2NTAA",
+                        "messageText": "Resposta",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-04T21:17:03.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0EwMzA2NTI0RTVFODdGRDE4MkQA",
+                        "messageText": "Outra resposta",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-04T21:18:18.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "6891db8809da4fb98a7a2f25",
+        "campaignName": "Campanha9",
+        "templateName": "utility_3",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T10:23:04.877Z",
+        "total": 1,
+        "success": 0,
+        "failed": 1,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "status": "failed",
+                "success": false,
+                "error": {
+                    "message": "(#132001) Template name does not exist in the translation",
+                    "type": "OAuthException",
+                    "code": 132001,
+                    "error_data": {
+                        "messaging_product": "whatsapp",
+                        "details": "template name (utility_3) does not exist in pt_BR"
+                    },
+                    "fbtrace_id": "A5M2Lb4NaSu91JOB6mfD_AD"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "6891dd6009da4fb98a7a2f26",
+        "campaignName": "Campanha9",
+        "templateName": "utility_3",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T10:30:56.501Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSMzlFMzYyMjE3RjJDN0JEMkQ1AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-08-05T10:31:05.000Z",
+                "deliveredDateTime": "2025-08-05T10:31:06.000Z",
+                "readDateTime": "2025-08-05T10:31:10.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0FEQjcyOEFFMkVFMjY1RUJGNTIA",
+                        "messageText": null,
+                        "messageType": "button",
+                        "messageDateTime": "2025-08-05T10:31:16.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0FDMDE1MTU5QTgyNTBFNUEzNTQA",
+                        "messageText": "Outra resposta",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-05T10:33:54.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "6891ed5f09da4fb98a7a2f27",
+        "campaignName": "Campaign 2025-08-05 11:39:11.469",
+        "templateName": "Marketing",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T11:39:11.469Z",
+        "total": 2,
+        "success": 0,
+        "failed": 2,
+        "results": [
+            {
+                "phoneNumber": null,
+                "status": "failed",
+                "success": false,
+                "error": {
+                    "message": "The parameter to is required.",
+                    "type": "OAuthException",
+                    "code": 100,
+                    "fbtrace_id": "AULP0nl5GLFZiS7LrBdVfjM"
+                }
+            },
+            {
+                "phoneNumber": "5531997642079",
+                "status": "failed",
+                "success": false,
+                "error": {
+                    "message": "(#132001) Template name does not exist in the translation",
+                    "type": "OAuthException",
+                    "code": 132001,
+                    "error_data": {
+                        "messaging_product": "whatsapp",
+                        "details": "template name (Marketing) does not exist in pt_BR"
+                    },
+                    "fbtrace_id": "AXpVc9wJLqOdbQ1YC-rRhFI"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "6891ee0809da4fb98a7a2f28",
+        "campaignName": "Campaign 2025-08-05 11:42:00.251",
+        "templateName": "utility_3",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T11:42:00.251Z",
+        "total": 2,
+        "success": 1,
+        "failed": 1,
+        "results": [
+            {
+                "phoneNumber": null,
+                "status": "failed",
+                "success": false,
+                "error": {
+                    "message": "The parameter to is required.",
+                    "type": "OAuthException",
+                    "code": 100,
+                    "fbtrace_id": "A-YyGLt_2Mp4554t5aSuFRl"
+                }
+            },
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSQTI5NzQ2ODQ4NTI4QUU4RUIxAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-08-05T11:42:08.000Z",
+                "deliveredDateTime": "2025-08-05T11:42:09.000Z",
+                "readDateTime": "2025-08-05T11:43:17.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "6891fab209da4fb98a7a2f29",
+        "campaignName": "Campanha10",
+        "templateName": "utility_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T12:36:02.010Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSOTE1NjhEQTE3OTAxNTY5RDU3AA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-08-05T12:36:09.000Z",
+                "deliveredDateTime": "2025-08-05T12:36:10.000Z",
+                "readDateTime": "2025-08-05T12:39:51.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "6892391409da4fb98a7a2f2d",
+        "campaignName": "Campanha7",
+        "templateName": "mkt_limatech_7",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T17:02:12.094Z",
+        "total": 1,
+        "success": 0,
+        "failed": 1,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "status": "failed",
+                "success": false,
+                "error": {
+                    "message": "(#132012) Parameter format does not match format in the created template",
+                    "type": "OAuthException",
+                    "code": 132012,
+                    "error_data": {
+                        "messaging_product": "whatsapp",
+                        "details": "header: Format mismatch, expected TEXT, received IMAGE"
+                    },
+                    "fbtrace_id": "AC5iJOK5mcDT9ctVjTO3NYZ"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "6892392e09da4fb98a7a2f2e",
+        "campaignName": "Campanha7",
+        "templateName": "media_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T17:02:38.094Z",
+        "total": 1,
+        "success": 0,
+        "failed": 1,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "status": "failed",
+                "success": false,
+                "error": {
+                    "message": "(#132001) Template name does not exist in the translation",
+                    "type": "OAuthException",
+                    "code": 132001,
+                    "error_data": {
+                        "messaging_product": "whatsapp",
+                        "details": "template name (media_1) does not exist in pt_BR"
+                    },
+                    "fbtrace_id": "AF5cHgZF6QX1pdYfHbmr0Xe"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "6892428f09da4fb98a7a2f2f",
+        "campaignName": "Campanha10",
+        "templateName": "utility_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T17:42:39.209Z",
+        "total": 2,
+        "success": 1,
+        "failed": 1,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSQzU3NjMxMjI2QTc2OUZDMzQ1AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-08-05T17:42:47.000Z",
+                "deliveredDateTime": "2025-08-05T17:42:47.000Z",
+                "readDateTime": "2025-08-05T17:43:28.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0E1OTQ0RUM2QzY2QkM5MEEwOTgA",
+                        "messageText": "Acompanhar Pedido",
+                        "messageType": "button",
+                        "messageDateTime": "2025-08-05T17:43:32.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0E1RkI0RUY0MDFEMTkyMEU0Q0IA",
+                        "messageText": "Outra resposta",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-05T17:44:25.000Z"
+                    }
+                ]
+            },
+            {
+                "phoneNumber": "553199767-1811",
+                "status": "failed",
+                "success": false,
+                "error": {
+                    "message": "(#131030) Recipient phone number not in allowed list",
+                    "type": "OAuthException",
+                    "code": 131030,
+                    "error_data": {
+                        "messaging_product": "whatsapp",
+                        "details": "O número de telefone do destinatário não está na lista de permissão: Adicione o telefone do destinatário à lista de destinatários e tente novamente."
+                    },
+                    "fbtrace_id": "A-swRlv1ru_v-etbpXosn9j"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "689242a809da4fb98a7a2f30",
+        "campaignName": "Campanha10",
+        "templateName": "utility_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T17:43:04.089Z",
+        "total": 2,
+        "success": 1,
+        "failed": 1,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSRjA2RDYwNTU2RkVCRDM1RTY2AA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-08-05T17:43:11.000Z",
+                "deliveredDateTime": "2025-08-05T17:43:11.000Z",
+                "readDateTime": "2025-08-05T17:43:28.000Z"
+            },
+            {
+                "phoneNumber": "5531997671811",
+                "status": "failed",
+                "success": false,
+                "error": {
+                    "message": "(#131030) Recipient phone number not in allowed list",
+                    "type": "OAuthException",
+                    "code": 131030,
+                    "error_data": {
+                        "messaging_product": "whatsapp",
+                        "details": "O número de telefone do destinatário não está na lista de permissão: Adicione o telefone do destinatário à lista de destinatários e tente novamente."
+                    },
+                    "fbtrace_id": "AMaqm5kai8z1H_NWKA5XgC8"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "6892435309da4fb98a7a2f31",
+        "campaignName": "Campanha11",
+        "templateName": "utility_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T17:45:55.167Z",
+        "total": 2,
+        "success": 1,
+        "failed": 1,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSQjdGRDNGODkyMzYzRkIwOEQ2AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-08-05T17:46:03.000Z",
+                "deliveredDateTime": "2025-08-05T17:46:03.000Z",
+                "readDateTime": "2025-08-05T17:46:03.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0ExMzdDMjlBNkQ5QzY5RjYwRkQA",
+                        "messageText": "Acompanhar Pedido",
+                        "messageType": "button",
+                        "messageDateTime": "2025-08-05T17:49:45.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0FEQTkwMTY0OUM0Qjk4N0ZCMkIA",
+                        "messageText": "Outra resposta",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-05T17:50:05.000Z"
+                    }
+                ]
+            },
+            {
+                "phoneNumber": "5531997671811",
+                "status": "failed",
+                "success": false,
+                "error": {
+                    "message": "(#131030) Recipient phone number not in allowed list",
+                    "type": "OAuthException",
+                    "code": 131030,
+                    "error_data": {
+                        "messaging_product": "whatsapp",
+                        "details": "O número de telefone do destinatário não está na lista de permissão: Adicione o telefone do destinatário à lista de destinatários e tente novamente."
+                    },
+                    "fbtrace_id": "AYWxraPerI82GUv5jeWFPIf"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "6892447109da4fb98a7a2f32",
+        "campaignName": "Campanha11",
+        "templateName": "utility_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T17:50:41.307Z",
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSRkRBMkVGRkIwOEE2RUQ2RERGAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-08-05T17:50:49.000Z",
+                "deliveredDateTime": "2025-08-05T17:50:49.000Z",
+                "readDateTime": "2025-08-05T17:50:55.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0FDRTg5QUY5QjIwQUQ2MEI4M0QA",
+                        "messageText": "Acompanhar Pedido",
+                        "messageType": "button",
+                        "messageDateTime": "2025-08-05T17:50:56.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0E5NUU2MkQ1RTExRTczODlDMjcA",
+                        "messageText": "Outra resposta",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-05T17:51:00.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0E5NjJFMjdBODJDOTZCMDYxMTAA",
+                        "messageText": "Outra resposta",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-05T17:51:03.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0EzMzY5Q0Q3MzEzMEM1NDNCNUQA",
+                        "messageText": "Sim",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-05T18:28:23.000Z"
+                    }
+                ]
+            },
+            {
+                "phoneNumber": "553197671811",
+                "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAERgSRTI0MjI4NjU1NEJGNUJDQTk4AA==",
+                "status": "delivered",
+                "success": true,
+                "sentDateTime": "2025-08-05T17:50:50.000Z",
+                "deliveredDateTime": "2025-08-05T17:50:50.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "6892549809da4fb98a7a2f33",
+        "campaignName": "Campanha11",
+        "templateName": "utility_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T18:59:36.487Z",
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553197671811",
+                "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAERgSODA1MzlGMEY5NjYwNUU1REIyAA==",
+                "status": "sent",
+                "success": true,
+                "deliveredDateTime": "2025-08-05T18:59:44.000Z",
+                "sentDateTime": "2025-08-05T18:59:44.000Z"
+            },
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSREU2NTc5MjlDQ0Y2NTc0MTk2AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-08-05T18:59:44.000Z",
+                "deliveredDateTime": "2025-08-05T18:59:44.000Z",
+                "readDateTime": "2025-08-05T19:00:23.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0FFMURDQzk4Mzg1NkZBMDg3MkUA",
+                        "messageText": "Acompanhar Pedido",
+                        "messageType": "button",
+                        "messageDateTime": "2025-08-05T19:18:39.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0E0OEY2RTM4MzM3MzdEOTNFNDYA",
+                        "messageText": "Outra resposta",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-05T19:18:43.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0E0OTVFM0NCNjJBRkFDNEIxRkMA",
+                        "messageText": "Outra resposta",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-05T19:18:47.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "6892615e09da4fb98a7a2f34",
+        "campaignName": "Campanha12",
+        "templateName": "utility_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-05T19:54:06.437Z",
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553197671811",
+                "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAERgSNTZCQjhFMTdGNDdCNzBCNkZBAA==",
+                "status": "delivered",
+                "success": true,
+                "sentDateTime": "2025-08-05T19:54:14.000Z",
+                "deliveredDateTime": "2025-08-05T19:54:14.000Z"
+            },
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSQTYzREQ1NTRDRDAzNzlCMzUyAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-08-05T19:54:14.000Z",
+                "deliveredDateTime": "2025-08-05T19:54:14.000Z",
+                "readDateTime": "2025-08-05T19:54:15.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0E0QjdFNTIxRTYxNkMyOUY2RkEA",
+                        "messageText": "Acompanhar Pedido",
+                        "messageType": "button",
+                        "messageDateTime": "2025-08-05T19:56:10.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0FCRDUzQkYyNTlGN0M2MDRBOUEA",
+                        "messageText": "Outra mensagem",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-05T19:57:34.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0FFQUNCNjlENjJEODQwNDVDMjAA",
+                        "messageText": "Outra mensagem 1",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-05T19:57:38.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAEhgUM0E1NkQyMEUyRDVBRkIyMEVBRjYA",
+                        "messageText": "Cancelar",
+                        "messageType": "text",
+                        "messageDateTime": "2025-08-05T19:58:36.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "689361e309da4fb98a7a2f35",
+        "campaignName": "Campanha13",
+        "templateName": "utility_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-08-06T14:08:35.272Z",
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "5531997642079",
+                "messageId": "wamid.HBgMNTUzMTk3NjQyMDc5FQIAERgSNzYzRDFCOTEwNjZFRDE3MEE0AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-08-06T14:08:43.000Z",
+                "deliveredDateTime": "2025-08-06T14:08:44.000Z",
+                "readDateTime": "2025-08-06T14:08:44.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAEhggRTQ1RThDNTREQTM5OTNEOTYxQTY2NEZERDM5REI2QUIA",
+                        "messageText": "Acompanhar Pedido",
+                        "messageType": "button",
+                        "messageDateTime": "2025-08-06T14:08:54.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0FBQzM3MDA3RDM2RUYxMkYzQTcA",
+                        "messageText": "Oi",
+                        "messageType": "text",
+                        "messageDateTime": "2025-09-12T14:54:53.000Z"
+                    }
+                ]
+            },
+            {
+                "phoneNumber": "553197671811",
+                "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAERgSQUNDMzk0NTJENUJFMjg4NEM1AA==",
+                "status": "sent",
+                "success": true,
+                "deliveredDateTime": "2025-08-06T14:08:43.000Z",
+                "sentDateTime": "2025-08-06T14:08:43.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "69027b15a45aa9fd5a47d795",
+        "campaignName": "Campaign 2025-10-29 20:37:41.308",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-10-29T20:37:41.309Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSQjgxMzA1RkUyRTgzQTFDQTdGAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-10-29T20:37:42.000Z",
+                "deliveredDateTime": "2025-10-29T20:37:43.000Z",
+                "readDateTime": "2025-10-29T20:37:47.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0E3MzNBM0FDMUExQjI3RUVBQkQA",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-10-29T20:37:50.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "69027b67a45aa9fd5a47d796",
+        "campaignName": "Campaign 2025-10-29 20:39:03.922",
+        "templateName": "utility_3",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-10-29T20:39:03.922Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSRkFFMTQzQjJDRUZGNEVEOTlDAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-10-29T20:39:11.000Z",
+                "deliveredDateTime": "2025-10-29T20:39:11.000Z",
+                "readDateTime": "2025-10-29T20:39:11.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "69027bc8a45aa9fd5a47d797",
+        "campaignName": "Campaign 2025-10-29 20:40:40.599",
+        "templateName": "mkt_limatech_3",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-10-29T20:40:40.600Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSQjY5MzYwMjZEOTEzRURENzY1AA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-10-29T20:40:41.000Z",
+                "deliveredDateTime": "2025-10-29T20:40:42.000Z",
+                "readDateTime": "2025-10-29T20:40:46.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690a09b1f84f9fa38c0abc56",
+        "campaignName": "Campaign 2025-11-04 14:12:01.449",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T14:12:01.449Z",
+        "total": 1,
+        "success": 0,
+        "failed": 1,
+        "results": [
+            {
+                "phoneNumber": "5531996371744",
+                "status": "failed",
+                "success": false,
+                "error": {
+                    "message": "(#131030) Recipient phone number not in allowed list",
+                    "type": "OAuthException",
+                    "code": 131030,
+                    "error_data": {
+                        "messaging_product": "whatsapp",
+                        "details": "O número de telefone do destinatário não está na lista de permissão: Adicione o telefone do destinatário à lista de destinatários e tente novamente."
+                    },
+                    "fbtrace_id": "A8haKGcnEcQzpu2a74NR_u8"
+                }
+            }
+        ]
+    },
+    {
+        "_id": "690a09bcf84f9fa38c0abc57",
+        "campaignName": "Campaign 2025-11-04 14:12:12.014",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T14:12:12.014Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSODE2MTM2NEM2ODhDQjVEQUE3AA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-11-04T14:12:14.000Z",
+                "deliveredDateTime": "2025-11-04T14:12:14.000Z",
+                "readDateTime": "2025-11-04T14:12:21.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690a0b3da5da09ac7273207e",
+        "campaignName": "Campaign 2025-11-04 14:18:37.895",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T14:18:37.895Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSQUEwMUVDRTdERjJCRjhEMDA0AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-04T14:18:39.000Z",
+                "deliveredDateTime": "2025-11-04T14:18:40.000Z",
+                "readDateTime": "2025-11-04T14:20:33.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0FDMjdDMjExNDE1MDI1Q0I4REMA",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-04T14:20:38.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0E4MDMwQkU1RDEyQTUzRkUwMDUA",
+                        "messageText": "O",
+                        "messageType": "text",
+                        "messageDateTime": "2025-11-04T14:20:59.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690a0baaa5da09ac7273207f",
+        "campaignName": "Campaign 2025-11-04 14:20:26.713",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T14:20:26.713Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSQTM2OTNBMTBCODc2ODUzRkMxAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-11-04T14:20:28.000Z",
+                "deliveredDateTime": "2025-11-04T14:20:28.000Z",
+                "readDateTime": "2025-11-04T14:20:33.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690a1559a5da09ac72732080",
+        "campaignName": "Campaign 2025-11-04 15:01:45.895",
+        "templateName": "utility_5",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T15:01:45.895Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSQUJCQjBERjY1OTA2NTA1NUJBAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-04T15:01:53.000Z",
+                "deliveredDateTime": "2025-11-04T15:01:54.000Z",
+                "readDateTime": "2025-11-04T15:01:56.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0E2Mjg3NDk0ODAzREZEOENDM0UA",
+                        "messageText": "Acompanhar Pedido",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-04T15:02:08.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690a4880f84f9fa38c0abc58",
+        "campaignName": "Campaign 2025-11-04 18:40:00.468",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T18:40:00.468Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSRkYxNEY0M0NCQTVFMDczQUQzAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-11-04T18:40:02.000Z",
+                "deliveredDateTime": "2025-11-04T18:40:02.000Z",
+                "readDateTime": "2025-11-04T18:49:36.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690a48a5f84f9fa38c0abc59",
+        "campaignName": "Campaign 2025-11-04 18:40:37.438",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T18:40:37.438Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSN0YzRUI1NEJEOUNGRjZCQTUxAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-11-04T18:40:38.000Z",
+                "deliveredDateTime": "2025-11-04T18:40:38.000Z",
+                "readDateTime": "2025-11-04T18:49:36.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690a48e5f84f9fa38c0abc5a",
+        "campaignName": "Teste",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T18:41:41.674Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSNjI2MjIzNUQzNURFRDFCRDhEAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-11-04T18:41:42.000Z",
+                "deliveredDateTime": "2025-11-04T18:41:43.000Z",
+                "readDateTime": "2025-11-04T18:49:36.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690a4baa32719e1177bce3d8",
+        "campaignName": "Envio 04/11/2025 15:53",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T18:53:30.633Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSRThEODg2MDYwMzA3NERFNTk2AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-04T18:53:31.000Z",
+                "deliveredDateTime": "2025-11-04T18:53:31.000Z",
+                "readDateTime": "2025-11-04T18:54:05.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0FDQ0ZDOEY0ODlBOTY0NTM1MjgA",
+                        "messageText": "Cancelar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-04T18:54:06.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690a6bdcf84f9fa38c0abc5b",
+        "campaignName": "Envio 04/11/2025 18:10",
+        "templateName": "utility_5",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T21:10:52.836Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSRDJBQjBDQUJCOERFN0UwMEQ2AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-04T21:11:01.000Z",
+                "deliveredDateTime": "2025-11-04T21:11:01.000Z",
+                "readDateTime": "2025-11-04T21:11:01.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0E3MUM1QzNGMjJFQjVEQkM3MTAA",
+                        "messageText": "Acompanhar Pedido",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-04T21:11:04.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690a6d41f84f9fa38c0abc5c",
+        "campaignName": "Envio 04/11/2025 18:16",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T21:16:49.726Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSODYwN0Q4QkNBMkFCOTQyQkY0AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-04T21:16:50.000Z",
+                "deliveredDateTime": "2025-11-04T21:16:50.000Z",
+                "readDateTime": "2025-11-04T21:16:53.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0FGRTc1MjBDOEI5REVBRkI1QkIA",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-04T21:17:15.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690a78b1f84f9fa38c0abc5d",
+        "campaignName": "Envio 04/11/2025 19:05",
+        "templateName": "utility_4",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-04T22:05:37.667Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSODYwQUQwOThBNDBBMjUxOTJDAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-04T22:05:44.000Z",
+                "deliveredDateTime": "2025-11-04T22:05:45.000Z",
+                "readDateTime": "2025-11-04T22:05:55.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0ExOTFFMUVDNUVBM0E0NUQ2NTAA",
+                        "messageText": "Teste 123",
+                        "messageType": "text",
+                        "messageDateTime": "2025-11-04T22:06:07.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690b5bc5f84f9fa38c0abc5e",
+        "campaignName": "Envio 05/11/2025 11:14",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T14:14:29.162Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSMDRGODk3ODY5NTA4RjM5MEU1AA==",
+                "status": "answered",
+                "success": true,
+                "deliveredDateTime": "2025-11-05T14:14:31.000Z",
+                "sentDateTime": "2025-11-05T14:14:31.000Z",
+                "readDateTime": "2025-11-05T14:15:25.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgWM0VCMDkxQjYwNjBGQzBGMTUwNzA4RAA=",
+                        "messageText": "Cancelar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T14:15:37.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgWM0VCMDNFM0Y4QUU1NzM5NEE1QkI4RQA=",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T14:15:48.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgWM0VCMDA1NTg3NzY0MTZERUE3OURFQQA=",
+                        "messageText": "fasc",
+                        "messageType": "text",
+                        "messageDateTime": "2025-11-05T14:16:09.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690b8597f84f9fa38c0abc5f",
+        "campaignName": "Envio 05/11/2025 14:12",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T17:12:55.567Z",
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSQzNFNTBBMkEyMTg2NTk0RkFBAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-05T17:12:58.000Z",
+                "deliveredDateTime": "2025-11-05T17:12:58.000Z",
+                "readDateTime": "2025-11-05T17:13:06.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0E3RjJBMzhDQTRDRTM3MENDQTEA",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T17:13:20.000Z"
+                    }
+                ]
+            },
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSNkNBN0MwNkYxQTRGNzY4ODlBAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-11-05T17:12:57.000Z",
+                "deliveredDateTime": "2025-11-05T17:12:58.000Z",
+                "readDateTime": "2025-11-05T17:13:06.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690b8eb4f84f9fa38c0abc60",
+        "campaignName": "Envio 05/11/2025 14:47",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T17:51:48.521Z",
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSN0FCRThEM0ZBMTBGNTc0NUI0AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-05T17:51:50.000Z",
+                "deliveredDateTime": "2025-11-05T17:51:50.000Z",
+                "readDateTime": "2025-11-05T17:51:55.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjczNTI2FQIAEhgUM0E1NjIzMDA0MjA1QTA1MzEwOTEA",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T17:52:03.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjczNTI2FQIAEhgUM0EwMEFDRDZENkU1NjBFRjEzOUMA",
+                        "messageText": "Cancelar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T17:53:50.000Z"
+                    }
+                ]
+            },
+            {
+                "phoneNumber": "5531997673526",
+                "messageId": "wamid.HBgMNTUzMTk3NjczNTI2FQIAERgSOTExNTJCQjg4QzBFQ0RCNzZDAA==",
+                "status": "delivered",
+                "success": true,
+                "sentDateTime": "2025-11-05T17:51:50.000Z",
+                "deliveredDateTime": "2025-11-05T17:51:53.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690bafc4f84f9fa38c0abc61",
+        "campaignName": "Teste",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T20:12:52.894Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSMDcyODg3RTgwREE2RUU5MUU5AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-05T20:12:54.000Z",
+                "deliveredDateTime": "2025-11-05T20:12:55.000Z",
+                "readDateTime": "2025-11-05T20:39:06.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0E2ODI5N0IyMzdCOTY5MTc4MUEA",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T20:39:29.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0EwQzg5NzRCQzk2RTJFOEE5NEIA",
+                        "messageText": "Cancelar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T20:40:18.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690bb0491fceccf7b2eea967",
+        "campaignName": "Envio 05/11/2025 17:14",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T20:15:05.269Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSOTY2QzQyMTgxRTdEM0QzMDgwAA==",
+                "status": "read",
+                "success": true,
+                "readDateTime": "2025-11-05T20:39:06.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690bb3571fceccf7b2eea968",
+        "campaignName": "Envio 05/11/2025 17:14",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T20:28:07.892Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSQzQzQ0JCNzdFNjU5QjhCRDkxAA==",
+                "status": "read",
+                "success": true,
+                "readDateTime": "2025-11-05T20:39:06.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690bb5cd1fceccf7b2eea969",
+        "campaignName": "Envio 05/11/2025 17:14",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T20:38:37.805Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSREMxQ0YxNzgzRTVDN0IzMThFAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-11-05T20:38:39.000Z",
+                "deliveredDateTime": "2025-11-05T20:38:40.000Z",
+                "readDateTime": "2025-11-05T20:39:06.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690bb8291fceccf7b2eea96a",
+        "campaignName": "Envio 05/11/2025 17:48",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T20:48:41.619Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSQkVGMDU4NzI0NjE4Mzg2Qzc2AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-05T20:48:43.000Z",
+                "deliveredDateTime": "2025-11-05T20:48:44.000Z",
+                "readDateTime": "2025-11-05T20:48:57.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0E2QTY5QUZCMkU4NjhDRERFNUEA",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T20:49:04.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0FCRTJBMkZDNjFFMUY3MDFFRDIA",
+                        "messageText": "Cancelar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T20:49:24.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690bb8c11fceccf7b2eea96b",
+        "campaignName": "Envio 05/11/2025 17:50",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T20:51:13.027Z",
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553197671811",
+                "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAERgSRjg3ODZBOEI1RjE2MTgwNjhBAA==",
+                "status": "delivered",
+                "success": true,
+                "sentDateTime": "2025-11-05T20:51:15.000Z",
+                "deliveredDateTime": "2025-11-05T20:51:15.000Z"
+            },
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSM0Y2NzEyREM2OEFBMjUwNTJFAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-11-05T20:51:14.000Z",
+                "deliveredDateTime": "2025-11-05T20:51:14.000Z",
+                "readDateTime": "2025-11-05T20:51:15.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690bba6b1fceccf7b2eea96c",
+        "campaignName": "Envio 05/11/2025 17:58",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T20:58:19.402Z",
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553197671811",
+                "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAERgSNTE3MDc3RDdDMjc2NjM4MjQ4AA==",
+                "status": "delivered",
+                "success": true,
+                "sentDateTime": "2025-11-05T20:58:20.000Z",
+                "deliveredDateTime": "2025-11-05T20:58:21.000Z"
+            },
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSOTJCOUNBRTkwNzJFNUZDRTI3AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-05T20:58:21.000Z",
+                "deliveredDateTime": "2025-11-05T20:58:21.000Z",
+                "readDateTime": "2025-11-05T20:58:50.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0E4QkMwNjE3MkQwMjRFNEM3NkYA",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T20:59:02.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0E1NzUxRUE5MkY3RDkzMjA4RjUA",
+                        "messageText": "Cancelar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T20:59:18.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690bbac51fceccf7b2eea96d",
+        "campaignName": "Envio 05/11/2025 17:59",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T20:59:49.691Z",
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553197671811",
+                "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAERgSQjMxMDJFNzlGOTZCOEVCQUNFAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-05T20:59:50.000Z",
+                "deliveredDateTime": "2025-11-05T20:59:51.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAEhggQUNDQUQwNUJERkQzNUExOUIwQTczMTk0NEY1MDY5MzAA",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T21:02:46.000Z"
+                    }
+                ]
+            },
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSM0MzRjk4MTg3NzBDOUQxMkZEAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-05T20:59:51.000Z",
+                "deliveredDateTime": "2025-11-05T20:59:51.000Z",
+                "readDateTime": "2025-11-05T20:59:54.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0ExQTJDMkE2NTlGNThENEExRkMA",
+                        "messageText": "Cancelar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T21:00:00.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690bbaea1fceccf7b2eea96e",
+        "campaignName": "Envio 05/11/2025 18:00",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T21:00:26.094Z",
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553197671811",
+                "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAERgSMjc3REE4OEE3NjFCNTNCNUE3AA==",
+                "status": "sent",
+                "success": true
+            },
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSM0IzQzc1MjFGMDhGQThBODg3AA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-05T21:00:27.000Z",
+                "deliveredDateTime": "2025-11-05T21:00:27.000Z",
+                "readDateTime": "2025-11-05T21:00:42.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0FBRkVFQUI1NjhENDBCNDUwMDEA",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T21:03:10.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690bbbd91fceccf7b2eea96f",
+        "campaignName": "Envio 05/11/2025 18:04",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T21:04:25.343Z",
+        "total": 2,
+        "success": 2,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553197671811",
+                "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAERgSNTIzQ0Q2M0NDOTU0QkJCNzRDAA==",
+                "status": "answered",
+                "success": true,
+                "deliveredDateTime": "2025-11-05T21:04:27.000Z",
+                "sentDateTime": "2025-11-05T21:04:27.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk3NjcxODExFQIAEhggQUM4RURBQjRFRjIzNUZDOTYzQjM4NEUxNzY4NkZBMzEA",
+                        "messageText": "Conhecer",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T21:06:17.000Z"
+                    }
+                ]
+            },
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSMDE3MTBCRUFGODFFRUNCNTVDAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-05T21:04:26.000Z",
+                "deliveredDateTime": "2025-11-05T21:04:27.000Z",
+                "readDateTime": "2025-11-05T21:06:37.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0FEM0IwN0U5RjhEMkU2RkMxQzcA",
+                        "messageText": "Cancelar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T21:06:41.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690bc2871fceccf7b2eea970",
+        "campaignName": "Envio 05/11/2025 18:32",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T21:32:55.301Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSNEJBNjVENzUzRTJENjMyOEYwAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-11-05T21:32:56.000Z",
+                "deliveredDateTime": "2025-11-05T21:32:57.000Z",
+                "readDateTime": "2025-11-05T21:33:02.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690bc2a31fceccf7b2eea971",
+        "campaignName": "Envio 05/11/2025 18:32",
+        "templateName": "sale_announcement_buttons",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-05T21:33:23.019Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSNjUxODMzRjBFRjBBNTE4NDAyAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-05T21:33:30.000Z",
+                "deliveredDateTime": "2025-11-05T21:33:31.000Z",
+                "readDateTime": "2025-11-05T21:33:31.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0EwRENDNzlEM0I3NTE1NkM2RjAA",
+                        "messageText": "Confirmar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-05T21:36:28.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690d0959577eae9838483974",
+        "campaignName": "Envio 06/11/2025 17:46",
+        "templateName": "sale_announcement_buttons",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-06T20:47:21.304Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSRjYyQTQ4QjQ4MDhDOUQ3NkEwAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-06T20:47:22.000Z",
+                "deliveredDateTime": "2025-11-06T20:47:23.000Z",
+                "readDateTime": "2025-11-06T20:47:28.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0EwMTg1MUM2RkVGQjE3RTRCRDEA",
+                        "messageText": "Cancelar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-06T20:47:35.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690d2a76f84f9fa38c0abc62",
+        "campaignName": "Envio 06/11/2025 20:08",
+        "templateName": "cbx_1",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-06T23:08:38.736Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSRkQwNTNBRDQxMkJDNTA3REEwAA==",
+                "status": "read",
+                "success": true,
+                "sentDateTime": "2025-11-06T23:08:40.000Z",
+                "deliveredDateTime": "2025-11-06T23:08:40.000Z",
+                "readDateTime": "2025-11-06T23:09:34.000Z"
+            }
+        ]
+    },
+    {
+        "_id": "690d2bdaf84f9fa38c0abc63",
+        "campaignName": "Envio 06/11/2025 20:08",
+        "templateName": "sale_announcement_buttons",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-06T23:14:34.970Z",
+        "total": 1,
+        "success": 1,
+        "failed": 0,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSOUMzM0RGRDQxNTA1QTI2NEIyAA==",
+                "status": "answered",
+                "success": true,
+                "sentDateTime": "2025-11-06T23:14:36.000Z",
+                "deliveredDateTime": "2025-11-06T23:14:36.000Z",
+                "readDateTime": "2025-11-06T23:15:22.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0FENkQ0MkYzQUM1QkNGQTMyRDAA",
+                        "messageText": "Confirmar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-06T23:15:29.000Z"
+                    },
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0EzMjg1MThGRjc5OEU3QzYzREMA",
+                        "messageText": "Cancelar",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-06T23:15:37.000Z"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "_id": "690d2c9bf84f9fa38c0abc64",
+        "campaignName": "Campanha de marketing X",
+        "templateName": "utility_5",
+        "language": "pt_BR",
+        "fromPhoneNumber": "+15550082053",
+        "dateTime": "2025-11-06T23:17:47.201Z",
+        "total": 2,
+        "success": 1,
+        "failed": 1,
+        "results": [
+            {
+                "phoneNumber": "553196371744",
+                "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAERgSOEE1RUQzNTY1M0U1Q0M2MTFEAA==",
+                "status": "answered",
+                "success": true,
+                "deliveredDateTime": "2025-11-06T23:17:54.000Z",
+                "sentDateTime": "2025-11-06T23:17:54.000Z",
+                "readDateTime": "2025-11-06T23:18:49.000Z",
+                "answers": [
+                    {
+                        "messageId": "wamid.HBgMNTUzMTk2MzcxNzQ0FQIAEhgUM0FGN0ExOEJBODEyOTNDRUUyMzAA",
+                        "messageText": "Acompanhar Pedido",
+                        "messageType": "button",
+                        "messageDateTime": "2025-11-06T23:18:53.000Z"
+                    }
+                ]
+            },
+            {
+                "phoneNumber": "5531999041748",
+                "status": "failed",
+                "success": false,
+                "error": {
+                    "message": "(#131030) Recipient phone number not in allowed list",
+                    "type": "OAuthException",
+                    "code": 131030,
+                    "error_data": {
+                        "messaging_product": "whatsapp",
+                        "details": "O número de telefone do destinatário não está na lista de permissão: Adicione o telefone do destinatário à lista de destinatários e tente novamente."
+                    },
+                    "fbtrace_id": "AeyZOhqC2MjTJbul0xR4fSp"
+                }
+            }
+        ]
+    }
+]
