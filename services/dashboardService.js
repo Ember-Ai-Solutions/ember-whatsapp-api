@@ -454,12 +454,12 @@ async function addReportToDashboard(dashboardId, projectId, reportData) {
         }
 
         // Validate each metric has a type and is valid
-        const validTypes = ['messagesSent', 'campaignsTotal', 'replies', 'views', 'errors'];
+        const validMetricTypes = ['messagesSent', 'campaignsTotal', 'replies', 'views', 'errors'];
         reportData.metrics.forEach((metric, index) => {
             if (!metric.type) {
                 throw new Error(`Metric at index ${index} must have a type`);
             }
-            if (!validTypes.includes(metric.type)) {
+            if (!validMetricTypes.includes(metric.type)) {
                 throw new Error(`Invalid metric type: ${metric.type} at index ${index}`);
             }
         });
