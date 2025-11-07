@@ -108,34 +108,40 @@ async function getReplies(projectId, filters = {}, textFilter = null) {
         
         const campaigns = await campaignsCollection.find(query).toArray();
         
-        let totalReplies = 0;
         const uniqueRepliers = new Set();
 
         campaigns.forEach(campaign => {
             if (campaign.results && Array.isArray(campaign.results)) {
                 campaign.results.forEach(result => {
-                    if (result.answers && Array.isArray(result.answers)) {
-                        result.answers.forEach(answer => {
-                            // If text filter is provided, check if answer matches
-                            if (textFilter) {
-                                const answerText = (answer.messageText || '').toLowerCase();
+                    // Check if message was answered (status === "answered" OR has answers array)
+                    const hasAnswers = result.answers && Array.isArray(result.answers) && result.answers.length > 0;
+                    const isAnswered = result.status === 'answered' || hasAnswers;
+                    
+                    if (isAnswered) {
+                        // If text filter is provided, check if any answer matches
+                        if (textFilter) {
+                            if (hasAnswers) {
                                 const filterText = textFilter.toLowerCase();
+                                const hasMatchingAnswer = result.answers.some(answer => {
+                                    const answerText = (answer.messageText || '').toLowerCase();
+                                    // Case-insensitive exact match
+                                    return answerText === filterText;
+                                });
                                 
-                                // Case-insensitive exact match
-                                if (answerText === filterText) {
+                                if (hasMatchingAnswer) {
                                     uniqueRepliers.add(result.phoneNumber);
                                 }
-                            } else {
-                                // Count all replies
-                                uniqueRepliers.add(result.phoneNumber);
                             }
-                        });
+                        } else {
+                            // Count all replies (client who answered)
+                            uniqueRepliers.add(result.phoneNumber);
+                        }
                     }
                 });
             }
         });
 
-        totalReplies = uniqueRepliers.size;
+        const totalReplies = uniqueRepliers.size;
 
         logger.info('AnalyticsService: Replies calculated', { 
             projectId, 
@@ -199,11 +205,25 @@ async function getErrors(projectId, filters = {}) {
         
         const campaigns = await campaignsCollection.find(query).toArray();
         
-        const totalErrors = campaigns.reduce((sum, campaign) => {
-            return sum + (campaign.failed || 0);
-        }, 0);
+        // Count errors directly from results for accuracy
+        let totalErrors = 0;
+        
+        campaigns.forEach(campaign => {
+            if (campaign.results && Array.isArray(campaign.results)) {
+                campaign.results.forEach(result => {
+                    // Count messages that failed (success === false OR status === "failed")
+                    if (result.success === false || result.status === 'failed') {
+                        totalErrors++;
+                    }
+                });
+            }
+        });
 
-        logger.info('AnalyticsService: Errors calculated', { projectId, totalErrors, filters });
+        logger.info('AnalyticsService: Errors calculated', { 
+            projectId, 
+            totalErrors, 
+            filters 
+        });
         return totalErrors;
     } catch (error) {
         logger.error('AnalyticsService: Error calculating errors', { error: error.message, projectId, filters });
