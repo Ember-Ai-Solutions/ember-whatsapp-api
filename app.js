@@ -3,6 +3,7 @@ const express = require('express');
 const logger = require('./config/logger');
 const messageRoutes = require('./routes/message');
 const templateRoutes = require('./routes/template');
+const analyticsRoutes = require('./routes/analytics');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const swaggerJsdoc = require('swagger-jsdoc');
@@ -59,6 +60,10 @@ const swaggerDefinition = {
         {
             name: 'Template',
             description: 'Endpoints for managing Meta WhatsApp templates.'
+        },
+        {
+            name: 'Analytics',
+            description: 'Endpoints for retrieving analytics and statistics.'
         }
     ],
     components: {
@@ -84,6 +89,7 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/message', messageRoutes);
 app.use('/template', templateRoutes);
+app.use('/', analyticsRoutes);
 
 app.use((err, req, res, next) => {
     logger.error('App: Unhandled error', { error: err.message });
