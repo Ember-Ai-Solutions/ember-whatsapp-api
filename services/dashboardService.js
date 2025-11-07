@@ -156,11 +156,12 @@ async function createDashboard(projectId, dashboardData) {
                     : projectId;
                 
                 // Add dashboard ID to project's dashboards array (using $addToSet to avoid duplicates)
+                // Save as ObjectId, not string
                 await projectsCollection.updateOne(
                     { _id: projectObjectId },
                     { 
                         $addToSet: { 
-                            dashboards: dashboardId.toString() 
+                            dashboards: dashboardId 
                         } 
                     }
                 );
