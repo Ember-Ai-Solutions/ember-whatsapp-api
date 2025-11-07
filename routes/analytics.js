@@ -382,5 +382,152 @@ router.post('/dashboard', jwtTokenValidation('viewer'), async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /dashboard/{id}:
+ *   get:
+ *     summary: Get dashboard by ID
+ *     description: |
+ *       Retrieve a dashboard by its ID. Verifies that the project from the JWT token has access to this dashboard.
+ *
+ *       - Requires JWT authentication with at least 'viewer' role for the project.
+ *       - The **`projectId`** parameter is required in query string for user JWTs (not required for service JWTs).
+ *       - The dashboard ID must be in the project's dashboards array to access it.
+ *
+ *     tags:
+ *       - Analytics
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Unique identifier of the dashboard
+ *         example: "64b8f0f2e1d3c8a1f0a1b2c3"
+ *       - in: query
+ *         name: projectId
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Unique identifier of the project. Required if using a user JWT. Not required for service JWT.
+ *     responses:
+ *       200:
+ *         description: Dashboard retrieved successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   description: Unique identifier of the dashboard
+ *                   example: "64b8f0f2e1d3c8a1f0a1b2c3"
+ *                 reports:
+ *                   type: array
+ *                   description: Array of reports in the dashboard
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                         description: Report ID
+ *                       position:
+ *                         type: integer
+ *                         description: Position of the report
+ *                       metrics:
+ *                         type: array
+ *                         description: Array of metrics
+ *                       filters:
+ *                         type: object
+ *                         description: Filters for the report
+ *       400:
+ *         description: Invalid input. Dashboard ID or Project ID is missing.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Dashboard ID is required"
+ *       401:
+ *         description: Unauthorized. JWT is missing, invalid, or does not have the required role.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Unauthorized
+ *       403:
+ *         description: Forbidden. Project does not have access to this dashboard.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Access denied: Project does not have access to this dashboard"
+ *       404:
+ *         description: Dashboard or Project not found.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Dashboard not found"
+ *       500:
+ *         description: Internal server error. An unexpected error occurred.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Erro ao buscar dashboard"
+ *     security:
+ *       - bearerAuth: []
+ */
+router.get('/dashboard/:id', jwtTokenValidation('viewer'), async (req, res) => {
+    try {
+        const { id: dashboardId } = req.params;
+        const { projectId } = req.body;
+
+        if (!dashboardId) {
+            return res.status(400).json({ error: 'Dashboard ID is required' });
+        }
+
+        if (!projectId) {
+            return res.status(400).json({ error: 'Project ID is required' });
+        }
+
+        // Get dashboard and verify access
+        const dashboard = await dashboardService.getDashboardById(dashboardId, projectId);
+
+        res.status(200).json(dashboard);
+    } catch (error) {
+        // Handle specific error types
+        if (error.message === 'Dashboard ID is required' || error.message === 'Project ID is required') {
+            return res.status(400).json({ error: error.message });
+        }
+        
+        if (error.message === 'Project not found' || error.message === 'Dashboard not found') {
+            return res.status(404).json({ error: error.message });
+        }
+        
+        if (error.message.includes('Access denied')) {
+            return res.status(403).json({ error: error.message });
+        }
+        
+        logger.error('AnalyticsRoute: Error in GET /dashboard/:id', { error: error.message, stack: error.stack });
+        res.status(500).json({ error: 'Erro ao buscar dashboard' });
+    }
+});
+
 module.exports = router;
 

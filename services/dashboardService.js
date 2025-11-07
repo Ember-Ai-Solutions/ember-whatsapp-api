@@ -200,7 +200,80 @@ async function createDashboard(projectId, dashboardData) {
     }
 }
 
+/**
+ * Get dashboard by ID and verify project access
+ */
+async function getDashboardById(dashboardId, projectId) {
+    try {
+        if (!dashboardId) {
+            throw new Error('Dashboard ID is required');
+        }
+
+        if (!projectId) {
+            throw new Error('Project ID is required');
+        }
+
+        // Convert dashboardId to ObjectId if it's a string
+        const dashboardObjectId = typeof dashboardId === 'string' 
+            ? new mongodbService.ObjectId(dashboardId) 
+            : dashboardId;
+
+        // Convert projectId to ObjectId if it's a string
+        const projectObjectId = typeof projectId === 'string' 
+            ? new mongodbService.ObjectId(projectId) 
+            : projectId;
+
+        // First, verify that the project has access to this dashboard
+        const clientsDb = await mongodbService.getDbConnection(CLIENTS_DB_NAME);
+        const projectsCollection = clientsDb.collection(PROJECTS_COLLECTION_NAME);
+        
+        const project = await projectsCollection.findOne({ _id: projectObjectId });
+        
+        if (!project) {
+            throw new Error('Project not found');
+        }
+
+        // Check if dashboard ID is in project's dashboards array
+        const dashboards = project.dashboards || [];
+        const hasAccess = dashboards.some(dashId => {
+            // Compare ObjectIds directly
+            const dashIdObj = dashId instanceof mongodbService.ObjectId ? dashId : new mongodbService.ObjectId(dashId);
+            return dashIdObj.equals(dashboardObjectId);
+        });
+
+        if (!hasAccess) {
+            throw new Error('Access denied: Project does not have access to this dashboard');
+        }
+
+        // If project has access, fetch the dashboard
+        const websiteDb = await mongodbService.getDbConnection(WEBSITE_DB_NAME);
+        const dashboardsCollection = websiteDb.collection(DASHBOARDS_COLLECTION_NAME);
+        
+        const dashboard = await dashboardsCollection.findOne({ _id: dashboardObjectId });
+
+        if (!dashboard) {
+            throw new Error('Dashboard not found');
+        }
+
+        logger.info('DashboardService: Dashboard retrieved', { 
+            dashboardId: dashboardObjectId.toString(), 
+            projectId: projectObjectId.toString()
+        });
+
+        return dashboard;
+    } catch (error) {
+        logger.error('DashboardService: Error getting dashboard', { 
+            error: error.message, 
+            dashboardId,
+            projectId,
+            stack: error.stack 
+        });
+        throw error;
+    }
+}
+
 module.exports = {
-    createDashboard
+    createDashboard,
+    getDashboardById
 };
 
