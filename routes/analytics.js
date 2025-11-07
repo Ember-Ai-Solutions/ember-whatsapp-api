@@ -229,6 +229,7 @@ router.post('/stats', jwtTokenValidation('viewer'), async (req, res) => {
  *                   type: object
  *                   required:
  *                     - name
+ *                     - type
  *                     - metrics
  *                   properties:
  *                     _id:
@@ -243,6 +244,11 @@ router.post('/stats', jwtTokenValidation('viewer'), async (req, res) => {
  *                       type: string
  *                       description: Name of the report (required)
  *                       example: "Monthly Report"
+ *                     type:
+ *                       type: string
+ *                       enum: [number, pie, bar]
+ *                       description: Type of the report visualization (required)
+ *                       example: "number"
  *                     metrics:
  *                       type: array
  *                       description: Array of metrics for this report (required, must have at least one)
@@ -297,6 +303,7 @@ router.post('/stats', jwtTokenValidation('viewer'), async (req, res) => {
  *             reports:
  *               - position: 1
  *                 name: "Monthly Report"
+ *                 type: "number"
  *                 metrics:
  *                   - type: messagesSent
  *                   - type: campaignsTotal
@@ -445,6 +452,10 @@ router.post('/dashboard', jwtTokenValidation('viewer'), async (req, res) => {
  *                       name:
  *                         type: string
  *                         description: Name of the report
+ *                       type:
+ *                         type: string
+ *                         enum: [number, pie, bar]
+ *                         description: Type of the report visualization
  *                       metrics:
  *                         type: array
  *                         description: Array of metrics
@@ -584,6 +595,7 @@ router.get('/dashboard/:id', jwtTokenValidation('viewer'), async (req, res) => {
  *                   type: object
  *                   required:
  *                     - name
+ *                     - type
  *                     - metrics
  *                   properties:
  *                     _id:
@@ -598,6 +610,11 @@ router.get('/dashboard/:id', jwtTokenValidation('viewer'), async (req, res) => {
  *                       type: string
  *                       description: Name of the report (required)
  *                       example: "Monthly Report"
+ *                     type:
+ *                       type: string
+ *                       enum: [number, pie, bar]
+ *                       description: Type of the report visualization (required)
+ *                       example: "number"
  *                     metrics:
  *                       type: array
  *                       description: Array of metrics for this report (required, must have at least one)
@@ -652,11 +669,13 @@ router.get('/dashboard/:id', jwtTokenValidation('viewer'), async (req, res) => {
  *             reports:
  *               - position: 1
  *                 name: "Monthly Report"
+ *                 type: "number"
  *                 metrics:
  *                   - type: messagesSent
  *                   - type: campaignsTotal
  *               - position: 2
  *                 name: "Replies Report"
+ *                 type: "pie"
  *                 metrics:
  *                   - type: replies
  *                     filter:
@@ -824,6 +843,7 @@ router.put('/dashboard/:id', jwtTokenValidation('viewer'), async (req, res) => {
  *             type: object
  *             required:
  *               - name
+ *               - type
  *               - metrics
  *             properties:
  *               position:
@@ -834,6 +854,11 @@ router.put('/dashboard/:id', jwtTokenValidation('viewer'), async (req, res) => {
  *                 type: string
  *                 description: Name of the report (required)
  *                 example: "Monthly Report"
+ *               type:
+ *                 type: string
+ *                 enum: [number, pie, bar]
+ *                 description: Type of the report visualization (required)
+ *                 example: "number"
  *               metrics:
  *                 type: array
  *                 description: Array of metrics for this report (required, must have at least one)
@@ -886,6 +911,7 @@ router.put('/dashboard/:id', jwtTokenValidation('viewer'), async (req, res) => {
  *                     example: "+15556287518"
  *           example:
  *             name: "Monthly Report"
+ *             type: "number"
  *             metrics:
  *               - type: messagesSent
  *               - type: campaignsTotal

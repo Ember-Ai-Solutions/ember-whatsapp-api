@@ -18,6 +18,12 @@ function validateReport(report, existingPositions = []) {
         errors.push('Report name is required');
     }
 
+    // Validate type (required)
+    const validTypes = ['number', 'pie', 'bar'];
+    if (!report.type || !validTypes.includes(report.type)) {
+        errors.push(`Report type is required and must be one of: ${validTypes.join(', ')}`);
+    }
+
     // Validate metrics
     if (!report.metrics || !Array.isArray(report.metrics) || report.metrics.length === 0) {
         errors.push('Report must have at least one metric with a type');
@@ -99,6 +105,7 @@ function normalizeReports(reports) {
             _id: typeof reportId === 'string' ? new mongodbService.ObjectId(reportId) : reportId,
             position: position,
             name: report.name.trim(),
+            type: report.type,
             metrics: report.metrics || [],
             filters: report.filters || {}
         });
@@ -435,6 +442,12 @@ async function addReportToDashboard(dashboardId, projectId, reportData) {
             throw new Error('Report name is required');
         }
 
+        // Validate type (required)
+        const validTypes = ['number', 'pie', 'bar'];
+        if (!reportData.type || !validTypes.includes(reportData.type)) {
+            throw new Error(`Report type is required and must be one of: ${validTypes.join(', ')}`);
+        }
+
         // Validate the new report structure first (without position validation)
         if (!reportData.metrics || !Array.isArray(reportData.metrics) || reportData.metrics.length === 0) {
             throw new Error('Report must have at least one metric with a type');
@@ -465,6 +478,7 @@ async function addReportToDashboard(dashboardId, projectId, reportData) {
             _id: typeof reportId === 'string' ? new mongodbService.ObjectId(reportId) : reportId,
             position: position,
             name: reportData.name.trim(),
+            type: reportData.type,
             metrics: reportData.metrics || [],
             filters: reportData.filters || {}
         };
