@@ -13,6 +13,11 @@ const PROJECTS_COLLECTION_NAME = environment.mongoProjectsCollectionName;
 function validateReport(report, existingPositions = []) {
     const errors = [];
 
+    // Validate name (required)
+    if (!report.name || typeof report.name !== 'string' || report.name.trim() === '') {
+        errors.push('Report name is required');
+    }
+
     // Validate metrics
     if (!report.metrics || !Array.isArray(report.metrics) || report.metrics.length === 0) {
         errors.push('Report must have at least one metric with a type');
@@ -93,6 +98,7 @@ function normalizeReports(reports) {
         normalizedReports.push({
             _id: typeof reportId === 'string' ? new mongodbService.ObjectId(reportId) : reportId,
             position: position,
+            name: report.name.trim(),
             metrics: report.metrics || [],
             filters: report.filters || {}
         });
@@ -272,8 +278,358 @@ async function getDashboardById(dashboardId, projectId) {
     }
 }
 
+/**
+ * Update dashboard reports
+ */
+async function updateDashboard(dashboardId, projectId, dashboardData) {
+    try {
+        if (!dashboardId) {
+            throw new Error('Dashboard ID is required');
+        }
+
+        if (!projectId) {
+            throw new Error('Project ID is required');
+        }
+
+        // Convert dashboardId to ObjectId if it's a string
+        const dashboardObjectId = typeof dashboardId === 'string' 
+            ? new mongodbService.ObjectId(dashboardId) 
+            : dashboardId;
+
+        // Convert projectId to ObjectId if it's a string
+        const projectObjectId = typeof projectId === 'string' 
+            ? new mongodbService.ObjectId(projectId) 
+            : projectId;
+
+        // First, verify that the project has access to this dashboard
+        const clientsDb = await mongodbService.getDbConnection(CLIENTS_DB_NAME);
+        const projectsCollection = clientsDb.collection(PROJECTS_COLLECTION_NAME);
+        
+        const project = await projectsCollection.findOne({ _id: projectObjectId });
+        
+        if (!project) {
+            throw new Error('Project not found');
+        }
+
+        // Check if dashboard ID is in project's dashboards array
+        const dashboards = project.dashboards || [];
+        const hasAccess = dashboards.some(dashId => {
+            // Compare ObjectIds directly
+            const dashIdObj = dashId instanceof mongodbService.ObjectId ? dashId : new mongodbService.ObjectId(dashId);
+            return dashIdObj.equals(dashboardObjectId);
+        });
+
+        if (!hasAccess) {
+            throw new Error('Access denied: Project does not have access to this dashboard');
+        }
+
+        // Verify dashboard exists
+        const websiteDb = await mongodbService.getDbConnection(WEBSITE_DB_NAME);
+        const dashboardsCollection = websiteDb.collection(DASHBOARDS_COLLECTION_NAME);
+        
+        const existingDashboard = await dashboardsCollection.findOne({ _id: dashboardObjectId });
+
+        if (!existingDashboard) {
+            throw new Error('Dashboard not found');
+        }
+
+        // Normalize reports if provided
+        let reports = existingDashboard.reports || [];
+        if (dashboardData.reports !== undefined) {
+            if (!Array.isArray(dashboardData.reports)) {
+                throw new Error('Reports must be an array');
+            }
+            reports = normalizeReports(dashboardData.reports);
+        }
+
+        // Update dashboard
+        await dashboardsCollection.updateOne(
+            { _id: dashboardObjectId },
+            { 
+                $set: { 
+                    reports: reports 
+                } 
+            }
+        );
+
+        logger.info('DashboardService: Dashboard updated', { 
+            dashboardId: dashboardObjectId.toString(), 
+            projectId: projectObjectId.toString(),
+            reportsCount: reports.length 
+        });
+
+        // Fetch updated dashboard
+        const updatedDashboard = await dashboardsCollection.findOne({ _id: dashboardObjectId });
+
+        return updatedDashboard;
+    } catch (error) {
+        logger.error('DashboardService: Error updating dashboard', { 
+            error: error.message, 
+            dashboardId,
+            projectId,
+            stack: error.stack 
+        });
+        throw error;
+    }
+}
+
+/**
+ * Add a report to dashboard
+ */
+async function addReportToDashboard(dashboardId, projectId, reportData) {
+    try {
+        if (!dashboardId) {
+            throw new Error('Dashboard ID is required');
+        }
+
+        if (!projectId) {
+            throw new Error('Project ID is required');
+        }
+
+        // Convert dashboardId to ObjectId if it's a string
+        const dashboardObjectId = typeof dashboardId === 'string' 
+            ? new mongodbService.ObjectId(dashboardId) 
+            : dashboardId;
+
+        // Convert projectId to ObjectId if it's a string
+        const projectObjectId = typeof projectId === 'string' 
+            ? new mongodbService.ObjectId(projectId) 
+            : projectId;
+
+        // Verify project access
+        const clientsDb = await mongodbService.getDbConnection(CLIENTS_DB_NAME);
+        const projectsCollection = clientsDb.collection(PROJECTS_COLLECTION_NAME);
+        
+        const project = await projectsCollection.findOne({ _id: projectObjectId });
+        
+        if (!project) {
+            throw new Error('Project not found');
+        }
+
+        const dashboards = project.dashboards || [];
+        const hasAccess = dashboards.some(dashId => {
+            const dashIdObj = dashId instanceof mongodbService.ObjectId ? dashId : new mongodbService.ObjectId(dashId);
+            return dashIdObj.equals(dashboardObjectId);
+        });
+
+        if (!hasAccess) {
+            throw new Error('Access denied: Project does not have access to this dashboard');
+        }
+
+        // Get existing dashboard
+        const websiteDb = await mongodbService.getDbConnection(WEBSITE_DB_NAME);
+        const dashboardsCollection = websiteDb.collection(DASHBOARDS_COLLECTION_NAME);
+        
+        const existingDashboard = await dashboardsCollection.findOne({ _id: dashboardObjectId });
+
+        if (!existingDashboard) {
+            throw new Error('Dashboard not found');
+        }
+
+        // Get existing reports
+        const existingReports = existingDashboard.reports || [];
+        const existingPositions = existingReports.map(r => r.position).filter(p => p !== undefined);
+
+        // Validate name (required)
+        if (!reportData.name || typeof reportData.name !== 'string' || reportData.name.trim() === '') {
+            throw new Error('Report name is required');
+        }
+
+        // Validate the new report structure first (without position validation)
+        if (!reportData.metrics || !Array.isArray(reportData.metrics) || reportData.metrics.length === 0) {
+            throw new Error('Report must have at least one metric with a type');
+        }
+
+        // Validate each metric has a type and is valid
+        const validTypes = ['messagesSent', 'campaignsTotal', 'replies', 'views', 'errors'];
+        reportData.metrics.forEach((metric, index) => {
+            if (!metric.type) {
+                throw new Error(`Metric at index ${index} must have a type`);
+            }
+            if (!validTypes.includes(metric.type)) {
+                throw new Error(`Invalid metric type: ${metric.type} at index ${index}`);
+            }
+        });
+
+        // Generate _id if not provided
+        const reportId = reportData._id || new mongodbService.ObjectId();
+        
+        // Generate position if not provided (next available position)
+        let position = reportData.position;
+        if (position === undefined) {
+            position = getNextPosition(existingPositions);
+        }
+
+        // Create new report
+        const newReport = {
+            _id: typeof reportId === 'string' ? new mongodbService.ObjectId(reportId) : reportId,
+            position: position,
+            name: reportData.name.trim(),
+            metrics: reportData.metrics || [],
+            filters: reportData.filters || {}
+        };
+
+        // Add new report to existing reports
+        const allReports = [...existingReports, newReport];
+        
+        // Re-normalize positions to ensure they're sequential (1, 2, 3...)
+        allReports.forEach((report, index) => {
+            report.position = index + 1;
+        });
+
+        // Update dashboard
+        await dashboardsCollection.updateOne(
+            { _id: dashboardObjectId },
+            { 
+                $set: { 
+                    reports: allReports 
+                } 
+            }
+        );
+
+        logger.info('DashboardService: Report added to dashboard', { 
+            dashboardId: dashboardObjectId.toString(), 
+            projectId: projectObjectId.toString(),
+            reportId: newReport._id.toString(),
+            position: newReport.position
+        });
+
+        // Fetch updated dashboard
+        const updatedDashboard = await dashboardsCollection.findOne({ _id: dashboardObjectId });
+
+        return updatedDashboard;
+    } catch (error) {
+        logger.error('DashboardService: Error adding report to dashboard', { 
+            error: error.message, 
+            dashboardId,
+            projectId,
+            stack: error.stack 
+        });
+        throw error;
+    }
+}
+
+/**
+ * Remove a report from dashboard
+ */
+async function removeReportFromDashboard(dashboardId, projectId, reportId) {
+    try {
+        if (!dashboardId) {
+            throw new Error('Dashboard ID is required');
+        }
+
+        if (!projectId) {
+            throw new Error('Project ID is required');
+        }
+
+        if (!reportId) {
+            throw new Error('Report ID is required');
+        }
+
+        // Convert IDs to ObjectId if they're strings
+        const dashboardObjectId = typeof dashboardId === 'string' 
+            ? new mongodbService.ObjectId(dashboardId) 
+            : dashboardId;
+
+        const projectObjectId = typeof projectId === 'string' 
+            ? new mongodbService.ObjectId(projectId) 
+            : projectId;
+
+        const reportObjectId = typeof reportId === 'string' 
+            ? new mongodbService.ObjectId(reportId) 
+            : reportId;
+
+        // Verify project access
+        const clientsDb = await mongodbService.getDbConnection(CLIENTS_DB_NAME);
+        const projectsCollection = clientsDb.collection(PROJECTS_COLLECTION_NAME);
+        
+        const project = await projectsCollection.findOne({ _id: projectObjectId });
+        
+        if (!project) {
+            throw new Error('Project not found');
+        }
+
+        const dashboards = project.dashboards || [];
+        const hasAccess = dashboards.some(dashId => {
+            const dashIdObj = dashId instanceof mongodbService.ObjectId ? dashId : new mongodbService.ObjectId(dashId);
+            return dashIdObj.equals(dashboardObjectId);
+        });
+
+        if (!hasAccess) {
+            throw new Error('Access denied: Project does not have access to this dashboard');
+        }
+
+        // Get existing dashboard
+        const websiteDb = await mongodbService.getDbConnection(WEBSITE_DB_NAME);
+        const dashboardsCollection = websiteDb.collection(DASHBOARDS_COLLECTION_NAME);
+        
+        const existingDashboard = await dashboardsCollection.findOne({ _id: dashboardObjectId });
+
+        if (!existingDashboard) {
+            throw new Error('Dashboard not found');
+        }
+
+        // Get existing reports
+        const existingReports = existingDashboard.reports || [];
+        
+        // Find and remove the report
+        const reportIndex = existingReports.findIndex(r => {
+            const rId = r._id instanceof mongodbService.ObjectId ? r._id : new mongodbService.ObjectId(r._id);
+            return rId.equals(reportObjectId);
+        });
+
+        if (reportIndex === -1) {
+            throw new Error('Report not found');
+        }
+
+        // Remove the report
+        const updatedReports = existingReports.filter((r, index) => index !== reportIndex);
+
+        // Re-normalize positions to ensure they're sequential (1, 2, 3...)
+        if (updatedReports.length > 0) {
+            // Reset positions and re-assign sequentially
+            updatedReports.forEach((report, index) => {
+                report.position = index + 1;
+            });
+        }
+
+        // Update dashboard
+        await dashboardsCollection.updateOne(
+            { _id: dashboardObjectId },
+            { 
+                $set: { 
+                    reports: updatedReports 
+                } 
+            }
+        );
+
+        logger.info('DashboardService: Report removed from dashboard', { 
+            dashboardId: dashboardObjectId.toString(), 
+            projectId: projectObjectId.toString(),
+            reportId: reportObjectId.toString()
+        });
+
+        // Fetch updated dashboard
+        const updatedDashboard = await dashboardsCollection.findOne({ _id: dashboardObjectId });
+
+        return updatedDashboard;
+    } catch (error) {
+        logger.error('DashboardService: Error removing report from dashboard', { 
+            error: error.message, 
+            dashboardId,
+            projectId,
+            reportId,
+            stack: error.stack 
+        });
+        throw error;
+    }
+}
+
 module.exports = {
     createDashboard,
-    getDashboardById
+    getDashboardById,
+    updateDashboard,
+    addReportToDashboard,
+    removeReportFromDashboard
 };
 
