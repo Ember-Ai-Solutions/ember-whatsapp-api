@@ -1,5 +1,6 @@
 const express = require('express');
 const analyticsService = require('../services/analyticsService');
+const dashboardService = require('../services/dashboardService');
 const logger = require('../config/logger');
 const { jwtTokenValidation } = require('../middleware/auth');
 const router = express.Router();
@@ -186,6 +187,198 @@ router.post('/stats', jwtTokenValidation('viewer'), async (req, res) => {
     } catch (error) {
         logger.error('AnalyticsRoute: Error in POST /stats', { error: error.message, stack: error.stack });
         res.status(500).json({ error: 'Erro ao gerar estatísticas' });
+    }
+});
+
+/**
+ * @swagger
+ * /dashboard:
+ *   post:
+ *     summary: Create a new dashboard
+ *     description: |
+ *       Create a new dashboard with reports containing metrics and filters.
+ *
+ *       - Requires JWT authentication with at least 'viewer' role for the project.
+ *       - The **`projectId`** parameter is required in query string for user JWTs (not required for service JWTs).
+ *       - Each dashboard can have multiple reports.
+ *       - Each report must have at least one metric with a type.
+ *       - Position must be unique and sequential (1, 2, 3... no gaps).
+ *       - If position is not provided, it will be auto-generated.
+ *       - Report _id is auto-generated if not provided.
+ *
+ *     tags:
+ *       - Analytics
+ *     parameters:
+ *       - in: query
+ *         name: projectId
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Unique identifier of the project. Required if using a user JWT. Not required for service JWT.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               reports:
+ *                 type: array
+ *                 description: Array of reports (optional, can be empty array or omitted for empty dashboard)
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     _id:
+ *                       type: string
+ *                       description: Report ID (auto-generated if not provided)
+ *                       example: "64b8f0f2e1d3c8a1f0a1b2c3"
+ *                     position:
+ *                       type: integer
+ *                       description: Position of the report (auto-generated if not provided, must be unique and sequential)
+ *                       example: 1
+ *                     metrics:
+ *                       type: array
+ *                       description: Array of metrics for this report (required, must have at least one)
+ *                       items:
+ *                         type: object
+ *                         required:
+ *                           - type
+ *                         properties:
+ *                           type:
+ *                             type: string
+ *                             enum: [messagesSent, campaignsTotal, replies, views, errors]
+ *                             description: Type of metric
+ *                             example: messagesSent
+ *                           filter:
+ *                             type: object
+ *                             description: Optional metric-specific filters
+ *                             properties:
+ *                               text:
+ *                                 type: string
+ *                                 description: For replies metric, filter by exact text match (case-insensitive)
+ *                                 example: sim
+ *                     filters:
+ *                       type: object
+ *                       description: General filters to apply to all metrics in this report
+ *                       properties:
+ *                         dateRange:
+ *                           type: array
+ *                           items:
+ *                             type: string
+ *                             format: date
+ *                           minItems: 2
+ *                           maxItems: 2
+ *                           description: Date range [start, end] in ISO 8601 format
+ *                           example: ["2025-11-01", "2025-11-06"]
+ *                         campaignId:
+ *                           type: string
+ *                           description: Filter by campaign ID
+ *                           example: "507f1f77bcf86cd799439011"
+ *                         campaignName:
+ *                           type: string
+ *                           description: Filter by campaign name
+ *                           example: "Campaign 2025-11-01"
+ *                         templateName:
+ *                           type: string
+ *                           description: Filter by template name
+ *                           example: "welcome_template"
+ *                         fromPhoneNumber:
+ *                           type: string
+ *                           description: Filter by sender phone number
+ *                           example: "+15556287518"
+ *           example:
+ *             reports:
+ *               - position: 1
+ *                 metrics:
+ *                   - type: messagesSent
+ *                   - type: campaignsTotal
+ *                   - type: replies
+ *                   - type: views
+ *                   - type: errors
+ *                   - type: replies
+ *                     filter:
+ *                       text: sim
+ *                   - type: replies
+ *                     filter:
+ *                       text: quero saber mais
+ *                 filters:
+ *                   dateRange: ["2025-11-01", "2025-11-06"]
+ *                   campaignId: "507f1f77bcf86cd799439011"
+ *                   templateName: "welcome_template"
+ *     responses:
+ *       201:
+ *         description: Dashboard created successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                   description: Unique identifier of the created dashboard
+ *                   example: "64b8f0f2e1d3c8a1f0a1b2c3"
+ *       400:
+ *         description: Invalid input. Required fields are missing or malformed.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Report at index 0: Report must have at least one metric with a type"
+ *       401:
+ *         description: Unauthorized. JWT is missing, invalid, or does not have the required role.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Unauthorized
+ *       500:
+ *         description: Internal server error. An unexpected error occurred.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Erro ao criar dashboard"
+ *     security:
+ *       - bearerAuth: []
+ */
+router.post('/dashboard', jwtTokenValidation('viewer'), async (req, res) => {
+    try {
+        const { reports } = req.body;
+        const { projectId } = req.body;
+
+        // Validate reports if provided
+        if (reports !== undefined && !Array.isArray(reports)) {
+            return res.status(400).json({ error: 'Reports must be an array' });
+        }
+
+        // Create dashboard (reports can be empty array or undefined)
+        const result = await dashboardService.createDashboard(projectId, { reports: reports || [] });
+
+        res.status(201).json(result);
+    } catch (error) {
+        // Validation errors should return 400, other errors return 500
+        const isValidationError = error.message.includes('must') || 
+                                  error.message.includes('required') || 
+                                  error.message.includes('invalid') ||
+                                  error.message.includes('Position') ||
+                                  error.message.includes('sequential');
+        
+        if (isValidationError) {
+            logger.warn('AnalyticsRoute: Validation error in POST /dashboard', { error: error.message });
+            return res.status(400).json({ error: error.message });
+        }
+        
+        logger.error('AnalyticsRoute: Error in POST /dashboard', { error: error.message, stack: error.stack });
+        res.status(500).json({ error: 'Erro ao criar dashboard' });
     }
 });
 
