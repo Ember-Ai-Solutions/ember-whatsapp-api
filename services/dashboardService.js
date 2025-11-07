@@ -106,6 +106,7 @@ function normalizeReports(reports) {
             position: position,
             name: report.name.trim(),
             type: report.type,
+            size: report.size || 'medium',
             metrics: report.metrics || [],
             filters: report.filters || {}
         });
@@ -479,6 +480,7 @@ async function addReportToDashboard(dashboardId, projectId, reportData) {
             position: position,
             name: reportData.name.trim(),
             type: reportData.type,
+            size: reportData.size || 'medium',
             metrics: reportData.metrics || [],
             filters: reportData.filters || {}
         };

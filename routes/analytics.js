@@ -249,6 +249,10 @@ router.post('/stats', jwtTokenValidation('viewer'), async (req, res) => {
  *                       enum: [number, pie, bar]
  *                       description: Type of the report visualization (required)
  *                       example: "number"
+ *                     size:
+ *                       type: string
+ *                       description: Size of the report (optional, defaults to "medium")
+ *                       example: "medium"
  *                     metrics:
  *                       type: array
  *                       description: Array of metrics for this report (required, must have at least one)
@@ -304,6 +308,7 @@ router.post('/stats', jwtTokenValidation('viewer'), async (req, res) => {
  *               - position: 1
  *                 name: "Monthly Report"
  *                 type: "number"
+ *                 size: "medium"
  *                 metrics:
  *                   - type: messagesSent
  *                   - type: campaignsTotal
@@ -456,6 +461,9 @@ router.post('/dashboard', jwtTokenValidation('viewer'), async (req, res) => {
  *                         type: string
  *                         enum: [number, pie, bar]
  *                         description: Type of the report visualization
+ *                       size:
+ *                         type: string
+ *                         description: Size of the report
  *                       metrics:
  *                         type: array
  *                         description: Array of metrics
@@ -615,6 +623,10 @@ router.get('/dashboard/:id', jwtTokenValidation('viewer'), async (req, res) => {
  *                       enum: [number, pie, bar]
  *                       description: Type of the report visualization (required)
  *                       example: "number"
+ *                     size:
+ *                       type: string
+ *                       description: Size of the report (optional, defaults to "medium")
+ *                       example: "medium"
  *                     metrics:
  *                       type: array
  *                       description: Array of metrics for this report (required, must have at least one)
@@ -670,12 +682,14 @@ router.get('/dashboard/:id', jwtTokenValidation('viewer'), async (req, res) => {
  *               - position: 1
  *                 name: "Monthly Report"
  *                 type: "number"
+ *                 size: "medium"
  *                 metrics:
  *                   - type: messagesSent
  *                   - type: campaignsTotal
  *               - position: 2
  *                 name: "Replies Report"
  *                 type: "pie"
+ *                 size: "large"
  *                 metrics:
  *                   - type: replies
  *                     filter:
@@ -859,6 +873,10 @@ router.put('/dashboard/:id', jwtTokenValidation('viewer'), async (req, res) => {
  *                 enum: [number, pie, bar]
  *                 description: Type of the report visualization (required)
  *                 example: "number"
+ *               size:
+ *                 type: string
+ *                 description: Size of the report (optional, defaults to "medium")
+ *                 example: "medium"
  *               metrics:
  *                 type: array
  *                 description: Array of metrics for this report (required, must have at least one)
@@ -912,6 +930,7 @@ router.put('/dashboard/:id', jwtTokenValidation('viewer'), async (req, res) => {
  *           example:
  *             name: "Monthly Report"
  *             type: "number"
+ *             size: "medium"
  *             metrics:
  *               - type: messagesSent
  *               - type: campaignsTotal
