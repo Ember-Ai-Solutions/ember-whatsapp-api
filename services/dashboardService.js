@@ -1,8 +1,11 @@
 const mongodbService = require('./mongodbService');
+const environment = require('../config/environment');
 const logger = require('../config/logger');
 
 const WEBSITE_DB_NAME = 'website';
 const DASHBOARDS_COLLECTION_NAME = 'dashboards';
+const CLIENTS_DB_NAME = environment.mongoClientsDbName;
+const PROJECTS_COLLECTION_NAME = environment.mongoProjectsCollectionName;
 
 /**
  * Validate report structure
@@ -140,6 +143,42 @@ async function createDashboard(projectId, dashboardData) {
 
         // Insert dashboard
         await dashboardsCollection.insertOne(dashboard);
+
+        // Add dashboard ID to project's dashboards array
+        if (projectId) {
+            try {
+                const clientsDb = await mongodbService.getDbConnection(CLIENTS_DB_NAME);
+                const projectsCollection = clientsDb.collection(PROJECTS_COLLECTION_NAME);
+                
+                // Convert projectId to ObjectId if it's a string
+                const projectObjectId = typeof projectId === 'string' 
+                    ? new mongodbService.ObjectId(projectId) 
+                    : projectId;
+                
+                // Add dashboard ID to project's dashboards array (using $addToSet to avoid duplicates)
+                await projectsCollection.updateOne(
+                    { _id: projectObjectId },
+                    { 
+                        $addToSet: { 
+                            dashboards: dashboardId.toString() 
+                        } 
+                    }
+                );
+
+                logger.info('DashboardService: Dashboard ID added to project', { 
+                    dashboardId: dashboardId.toString(), 
+                    projectId: projectObjectId.toString()
+                });
+            } catch (error) {
+                // Log error but don't fail the dashboard creation
+                logger.error('DashboardService: Error adding dashboard to project', { 
+                    error: error.message, 
+                    dashboardId: dashboardId.toString(),
+                    projectId,
+                    stack: error.stack 
+                });
+            }
+        }
 
         logger.info('DashboardService: Dashboard created', { 
             dashboardId: dashboardId.toString(), 
