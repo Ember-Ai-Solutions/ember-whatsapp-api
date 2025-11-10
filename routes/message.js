@@ -871,7 +871,7 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
         const { template_name, phone_messages, wabaId, apiToken, phoneId, language, fromPhoneNumber, projectId } = req.body;
         let { campaignName } = req.query;
 
-        const normalizedBrazilianPhoneNumber = (fromPhoneNumber) => {
+        const normalizeBrazilianPhoneNumber = (fromPhoneNumber) => {
             if (!fromPhoneNumber || typeof fromPhoneNumber !== 'string') {
                 return fromPhoneNumber;
             }
@@ -892,7 +892,7 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
         }
 
 
-        const phone_numbers = phone_messages.map(msg => msg.phone_number);
+        const phone_numbers = phone_messages.map(msg => normalizeBrazilianPhoneNumber(msg.phone_number));
         const variablesList = phone_messages.map(msg => msg.variables || {});
 
         const result = await messageService.sendTemplateMessages({
@@ -903,7 +903,7 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
             variablesList,
             phoneId,
             languageCode: language,
-            fromPhoneNumber: normalizedBrazilianPhoneNumber(fromPhoneNumber),
+            fromPhoneNumber: fromPhoneNumber,
             projectId,
             campaignName
         });

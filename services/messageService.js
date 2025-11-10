@@ -215,6 +215,7 @@ async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_num
             total: phone_numbers.length,
             success: successCount,
             failed: failureCount,
+            variablesList,
             results
         };
 
