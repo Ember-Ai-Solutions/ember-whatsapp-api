@@ -871,6 +871,20 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
         const { template_name, phone_messages, wabaId, apiToken, phoneId, language, fromPhoneNumber, projectId } = req.body;
         let { campaignName } = req.query;
 
+        const normalizedBrazilianPhoneNumber = (fromPhoneNumber) => {
+            if (!fromPhoneNumber || typeof fromPhoneNumber !== 'string') {
+                return fromPhoneNumber;
+            }
+
+            const digitsOnly = fromPhoneNumber.replace(/\D/g, '');
+
+            if (digitsOnly.length === 12 && digitsOnly.startsWith('55')) {
+                const normalized = digitsOnly.slice(0, 4) + '9' + digitsOnly.slice(4);
+                return normalized;
+            }
+            return digitsOnly;
+        }
+
         campaignName = campaignName || `Campaign ${new Date().toISOString().replace('T', ' ').replace('Z', '')}`;
 
         if (!template_name || !phone_messages || !Array.isArray(phone_messages) || !language) {
@@ -889,7 +903,7 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
             variablesList,
             phoneId,
             languageCode: language,
-            fromPhoneNumber,
+            fromPhoneNumber: normalizedBrazilianPhoneNumber(fromPhoneNumber),
             projectId,
             campaignName
         });
