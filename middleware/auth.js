@@ -7,6 +7,7 @@ const logger = require('../config/logger');
 const JWT_VALIDATION_URL = environment.emberAuthUrl + '/token/verify';
 const CLIENTS_DB_NAME = environment.mongoClientsDbName;
 const PROJECTS_COLLECTION_NAME = environment.mongoProjectsCollectionName;
+const MONGO_USERS_COLLECTION_NAME = environment.mongoUsersCollectionName;
 
 function jwtTokenValidation(role) {
     return async function (req, res, next) {
@@ -30,21 +31,25 @@ function jwtTokenValidation(role) {
 
             const clientsDb = await mongodbService.getDbConnection(CLIENTS_DB_NAME);
             const projects = await clientsDb.collection(PROJECTS_COLLECTION_NAME).find().toArray();
+            const users = await clientsDb.collection(MONGO_USERS_COLLECTION_NAME).find().toArray();
 
             if (response.data.type === 'user') {
                 if (req.query.projectId) {
                     const project = projects.find(project => project._id == req.query.projectId);
+                    const user = users.find(user => user._id == response.data.userId);
                     if (!project) {
                         logger.error('AuthMiddleware: Project not found', { projectId: req.query.projectId });
                         return res.status(401).json({ message: 'Project not found' });
                     } else if (project.members[response.data.userId]) {
-                        tokenRoleLevel = project.members[response.data.userId].role;
+                        const member = project.members[response.data.userId];
+                        tokenRoleLevel = member.role;
                         req.body.projectId = project._id;
                         req.body.fromPhoneNumber = project.integrations.whatsApp.phoneNumber;
                         req.body.wabaId = project.integrations.whatsApp.businessAccountId;
                         req.body.phoneId = project.integrations.whatsApp.phoneId;
                         req.body.apiToken = project.integrations.whatsApp.apiToken;
                         req.body.appId = project.integrations.whatsApp.appId;
+                        req.body.sender = user.email || null;
                     } else {
                         logger.error('AuthMiddleware: User does not have permission for this project', { userId: response.data.userId, projectId: req.query.projectId });
                         return res.status(401).json({ message: 'You do not have permission to access this project' });
@@ -66,6 +71,7 @@ function jwtTokenValidation(role) {
                     req.body.apiToken = project.integrations.whatsApp.apiToken;
                     req.body.appId = project.integrations.whatsApp.appId;
                     tokenRoleLevel = roleLevels.indexOf(response.data.role);
+                    req.body.sender = response.data.email || null;
                 }
             }
 

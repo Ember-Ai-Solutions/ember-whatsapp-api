@@ -112,7 +112,7 @@ async function sendMessage({ wabaId, apiToken, message_type, phone_number, conte
     }
 }
 
-async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_numbers, variablesList, phoneId, languageCode, fromPhoneNumber, projectId, campaignName }) {
+async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_numbers, variablesList, phoneId, languageCode, fromPhoneNumber, projectId, campaignName, sender }) {
     try {
         const finalWabaId = wabaId;
         const finalApiToken = apiToken;
@@ -157,6 +157,7 @@ async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_num
                     fromPhoneNumber,
                     projectId,
                     templateName: template_name,
+                    sender,
                     phoneNumber: phoneNumber,
                     messageId: response.data.messages?.[0]?.id
                 });
@@ -175,6 +176,7 @@ async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_num
                     fromPhoneNumber,
                     projectId,
                     templateName: template_name,
+                    sender,
                     phoneNumber: phoneNumber,
                     error: error.response?.data || error.message
                 });
@@ -200,6 +202,7 @@ async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_num
             fromPhoneNumber,
             projectId,
             templateName: template_name,
+            sender,
             total: phone_numbers.length,
             success: successCount,
             failed: failureCount
@@ -211,6 +214,7 @@ async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_num
             templateName: template_name,
             language: lang,
             fromPhoneNumber,
+            sender: sender || null,
             dateTime: campaignDateTime,
             total: phone_numbers.length,
             success: successCount,
@@ -251,6 +255,7 @@ async function saveCampaign(campaignData, projectId) {
                         properties: {
                             campaignName: { bsonType: 'string' },
                             fromPhoneNumber: { bsonType: 'string' },
+                            sender: { bsonType: ['string', 'null'] },
                             templateName: { bsonType: 'string' },
                             language: { bsonType: 'string' },
                             dateTime: { bsonType: 'date' },
