@@ -906,7 +906,8 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
             fromPhoneNumber: fromPhoneNumber,
             projectId,
             campaignName,
-            sender: req.body.sender
+            senderEmail: req.body.senderEmail,
+            senderName: req.body.senderName
         });
 
         res.status(200).json(result);

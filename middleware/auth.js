@@ -49,7 +49,8 @@ function jwtTokenValidation(role) {
                         req.body.phoneId = project.integrations.whatsApp.phoneId;
                         req.body.apiToken = project.integrations.whatsApp.apiToken;
                         req.body.appId = project.integrations.whatsApp.appId;
-                        req.body.sender = user.email || null;
+                        req.body.senderEmail = user.email || null;
+                        req.body.senderName = user.name || null;
                     } else {
                         logger.error('AuthMiddleware: User does not have permission for this project', { userId: response.data.userId, projectId: req.query.projectId });
                         return res.status(401).json({ message: 'You do not have permission to access this project' });
@@ -71,7 +72,7 @@ function jwtTokenValidation(role) {
                     req.body.apiToken = project.integrations.whatsApp.apiToken;
                     req.body.appId = project.integrations.whatsApp.appId;
                     tokenRoleLevel = roleLevels.indexOf(response.data.role);
-                    req.body.sender = response.data.email || null;
+                    req.body.sender = "Ember Service";
                 }
             }
 
