@@ -868,7 +868,7 @@ router.post('/', jwtTokenValidation('editor'), async (req, res) => {
  */
 router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
     try {
-        const { template_name, phone_messages, wabaId, apiToken, phoneId, language, fromPhoneNumber, projectId } = req.body;
+        const { template_name, phone_messages, wabaId, apiToken, phoneId, language, fromPhoneNumber, projectId, blipRouterAuthToken } = req.body;
         let { campaignName } = req.query;
 
         const normalizeBrazilianPhoneNumber = (fromPhoneNumber) => {
@@ -907,7 +907,8 @@ router.post('/template', jwtTokenValidation('editor'), async (req, res) => {
             projectId,
             campaignName,
             senderEmail: req.body.senderEmail,
-            senderName: req.body.senderName
+            senderName: req.body.senderName,
+            blipRouterAuthToken
         });
 
         res.status(200).json(result);

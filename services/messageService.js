@@ -2,6 +2,8 @@ const axios = require('axios');
 const environment = require('../config/environment');
 const logger = require('../config/logger');
 const mongodbService = require('../services/mongodbService');
+const blipCommandService = require('../services/blipCommandService');
+const blipMessageService = require('../services/blipMessageService');
 
 const META_API_VERSION = environment.metaApiVersion;
 
@@ -112,7 +114,7 @@ async function sendMessage({ wabaId, apiToken, message_type, phone_number, conte
     }
 }
 
-async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_numbers, variablesList, phoneId, languageCode, fromPhoneNumber, projectId, campaignName, senderEmail, senderName }) {
+async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_numbers, variablesList, phoneId, languageCode, fromPhoneNumber, projectId, campaignName, senderEmail, senderName, blipRouterAuthToken }) {
     try {
         const finalWabaId = wabaId;
         const finalApiToken = apiToken;
@@ -162,6 +164,27 @@ async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_num
                     phoneNumber: phoneNumber,
                     messageId: response.data.messages?.[0]?.id
                 });
+
+                if (blipRouterAuthToken) {
+                    const blipCommandResult = await blipCommandService.mergeContact({
+                        resource: {
+                            identity: `${phoneNumber}.whatsapp@0mn.io`,
+                            extras: {
+                                activeNotificationTemplate: template_name,
+                                activeNotificationSender: senderEmail
+                            }
+                        },
+                        authorization: blipRouterAuthToken
+                    });
+                    logger.info('MessageService: Blip command result', { blipCommandResult });
+
+                    await blipMessageService.sendMessage({
+                        id: response.data.messages?.[0]?.id,
+                        contactIdentity: `${phoneNumber}.whatsapp@0mn.io`,
+                        authorization: blipRouterAuthToken,
+                        content: `[TEMPLATE ENVIADO] ${template_name}`
+                    });
+                }
 
                 return {
                     phoneNumber: phoneNumber,
