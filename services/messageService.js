@@ -178,12 +178,12 @@ async function sendTemplateMessages({ wabaId, apiToken, template_name, phone_num
                     });
                     logger.info('MessageService: Blip command result', { blipCommandResult });
 
-                    await blipMessageService.sendMessage({
-                        id: response.data.messages?.[0]?.id,
-                        contactIdentity: `${phoneNumber}.whatsapp@0mn.io`,
-                        authorization: blipRouterAuthToken,
-                        content: `[TEMPLATE ENVIADO] ${template_name}`
-                    });
+                    //await blipMessageService.sendMessage({
+                    //    id: response.data.messages?.[0]?.id,
+                    //    contactIdentity: `${phoneNumber}.whatsapp@0mn.io`,
+                    //    authorization: blipRouterAuthToken,
+                    //    content: `[TEMPLATE ENVIADO] ${template_name}`
+                    //});
                 }
 
                 return {
